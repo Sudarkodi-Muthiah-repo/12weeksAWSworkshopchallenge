@@ -1,0 +1,30 @@
+https://d3d9ccec0c0wmt.cloudfront.net CF distribution
+cloudfront-test-img
+
+
+https://d33xg3e34zawi9.cloudfront.net
+
+sudar-static-bucket.s3-website-us-east-1.amazonaws.com
+
+
+
+{
+        "Version": "2008-10-17",
+        "Id": "PolicyForCloudFrontPrivateContent",
+        "Statement": [
+            {
+                "Sid": "AllowCloudFrontServicePrincipal",
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": "cloudfront.amazonaws.com"
+                },
+                "Action": "s3:GetObject",
+                "Resource": "arn:aws:s3:::sudar-static-bucket/*",
+                "Condition": {
+                    "StringEquals": {
+                      "AWS:SourceArn": "arn:aws:cloudfront::206923297952:distribution/E19O8U478L5GKE"
+                    }
+                }
+            }
+        ]
+      }

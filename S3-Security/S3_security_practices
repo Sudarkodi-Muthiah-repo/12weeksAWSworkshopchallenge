@@ -1,0 +1,9 @@
+[user1]
+aws_access_key_id = AKIAVSV3D6B4U6UYFZNS
+aws_secret_access_key =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
+[user2]
+aws_access_key_id = AKIAVSV3D6B4YYZINIM7
+aws_secret_access_key = 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
+
+
+sid-security-4c58dee0-7919-11ee-83bd-062278914a11  s3 bucket
