@@ -1,1 +1,0 @@
-This week challenge about AWS cloud Formation workshop
