@@ -16,12 +16,13 @@ A stack policy is a JSON document that defines the permissions for updating or d
 ### Change Set
 A change set is a summary of proposed changes to a CloudFormation stack. It shows the differences between the current stack configuration and the desired stack configuration defined in a template. Change sets provide a way to review and validate changes before applying them to the stack, helping to prevent unintended modifications.
 ### Intrinsic functions
-Intrinsic functions are built-in functions that help you manage your stacks. Use intrinsic functions in your templates to assign values to properties that are not available until runtime. You can use intrinsic functions only in specific parts of a template. Currently, you can use intrinsic functions in resource properties, outputs, metadata attributes, and update policy attributes. You can also use intrinsic functions to conditionally create stack resources.
+Intrinsic functions in AWS CloudFormation are built-in functions that you can use within CloudFormation templates to perform dynamic transformations or retrieve information about your stack and its resources. These functions enable you to manipulate values, perform conditional evaluations, and access metadata during the template processing. Currently, you can use intrinsic functions in resource properties, outputs, metadata attributes, and update policy attributes. 
 ### Pseudo parameters
-Pseudo parameters are parameters that are predefined by AWS CloudFormation. You don't declare them in your template. Use them the same way as you would a parameter, as the argument for the Ref function.
+Pseudo parameters in AWS CloudFormation are pre-defined variables that you can reference in your CloudFormation templates. These parameters are automatically resolved and populated by AWS CloudFormation during stack creation or update. Pseudo-parameters provide information about the stack, region, and other contextual details.
 ### Mappings
-A Mappings section is a top-level section of a CloudFormation template. It is used to define maps, their keys, and values which can be then referenced in your template. The optional Mappings section matches a key to a corresponding set of named values. For example, if you want to set values based on a region, you can create a mapping that uses the region name as a key and contains the values you want to specify for each specific region. You use the Fn::FindInMap intrinsic function to retrieve values in a map.
-You can't include parameters, pseudo parameters, or intrinsic functions in the Mappings section.
+Mappings in AWS CloudFormation provide a way to define a set of key-value pairs that can be used to customize the resources in your CloudFormation templates based on different conditions, such as regions, environment types, or instance sizes. Mappings allow you to create reusable templates that can be easily adapted to different scenarios without modifying the template structure. You can't include parameters, pseudo parameters, or intrinsic functions in the Mappings section.
 
 These concepts form the foundation of AWS CloudFormation and enable you to define, manage, and automate your infrastructure as code. By using CloudFormation, you can provision and maintain your AWS resources consistently and efficiently, and easily manage changes and updates to your infrastructure over time.
+
+Reference: [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/](url)
 
