@@ -1,8 +1,8 @@
 To complete this workshop, you will need to perform the following:
-  Create an AWS Account
-  AWS Cloud9 Setup (Recommended) or Local Development Setup
-  Default VPC
-I am using Local devlopment setup for this lab.
+  * Create an AWS Account
+  * AWS Cloud9 Setup (Recommended) or Local Development Setup
+  * Default VPC
+I am using a Local development setup for this lab.
 ## Local Development Setup
 ### Install AWS CLI
 ### Configure your credentials
