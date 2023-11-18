@@ -24,5 +24,5 @@ Mappings in AWS CloudFormation provide a way to define a set of key-value pairs 
 
 These concepts form the foundation of AWS CloudFormation and enable you to define, manage, and automate your infrastructure as code. By using CloudFormation, you can provision and maintain your AWS resources consistently and efficiently, and easily manage changes and updates to your infrastructure over time.
 
-Reference: [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/](url)
+Reference: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html
 
