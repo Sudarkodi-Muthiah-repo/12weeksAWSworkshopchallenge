@@ -161,11 +161,14 @@ Outputs:
    '''
    cfn-lint user-data.yaml
    ```
+   !(Week6/CLI_cfn-lint-user-data-check.png)
+   
 3. Use the AWS CLI to create the stack. Copy the below command and run.
    ```
    aws cloudformation create-stack --stack-name cfn-workshop-user-data --template-body file://user-data.yaml --capabilities CAPABILITY_IAM
    ```
 4. If the create-stack command was successfully sent, CloudFormation will return StackId.
+   !(Week6/CLI_cfn-stack-creation.png)
 5. Open the AWS CloudFormation  console in a new tab and wait for the stack status to reach CREATE_COMPLETE. You need to periodically select Refresh to see the latest stack status.
 6. In a web browser, enter the WebsiteURL (you can get the WebsiteURL from the Outputs tab of the CloudFormation console).
    You should see a page similar to the picture below:
