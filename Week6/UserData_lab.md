@@ -164,6 +164,7 @@ Outputs:
    ```
    cfn-lint user-data.yaml
    ```
+ ![https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/blob/main/Week6/CLI_cfn-lint-user-data-check.png]
  ![CLI_cfn-lint-user-data-check](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/c57a7f69-cbd1-4caf-8992-d4fbadbecb5d)
 
 3. Use the AWS CLI to create the stack. Copy the below command and run.
