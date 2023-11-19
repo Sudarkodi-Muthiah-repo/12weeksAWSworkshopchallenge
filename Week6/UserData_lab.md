@@ -5,7 +5,7 @@ You can use AWS CloudFormation to automatically install, configure, and start ap
 In this lab, you will deploy an Apache Web server with a simple PHP application via the UserData  property.
 ### High-level Architecture
 
-![Architecture](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/78d9c148-30b0-46c7-bbd0-ff0722e5d869)
+![Architecture](./images/Architecture.png)
 
 ### Steps
 * First, you will bootstrap the EC2 instance to install a web server and content.
