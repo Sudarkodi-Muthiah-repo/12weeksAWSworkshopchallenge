@@ -4,5 +4,5 @@
 
 
 Reference: [](https://12weeksworkshops.com/)
-![Workshop_image](./images/[Workshop_image.png)
+![Workshop_image](./Week6/images/Workshop_image.png)
 
