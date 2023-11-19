@@ -4,6 +4,9 @@ You can use AWS CloudFormation to automatically install, configure, and start ap
 
 In this lab, you will deploy an Apache Web server with a simple PHP application via the UserData  property.
 ### High-level Architecture
+
+![Architecture](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/78d9c148-30b0-46c7-bbd0-ff0722e5d869)
+
 ### Steps
 * First, you will bootstrap the EC2 instance to install a web server and content.
 * Then you will create an EC2 Security Group and allow access on port 80 to the instance.
@@ -168,21 +171,28 @@ Outputs:
    aws cloudformation create-stack --stack-name cfn-workshop-user-data --template-body file://user-data.yaml --capabilities CAPABILITY_IAM
    ```
 4. If the create-stack command was successfully sent, CloudFormation will return StackId.
+ 
    ![CLI_cfn-stack-creation](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/3f4d9120-1de5-4d6a-8762-c000779f20e6)
 
 5. Open the AWS CloudFormation  console in a new tab and wait for the stack status to reach CREATE_COMPLETE. You need to periodically select Refresh to see the latest stack status.
    ![Userdata_Cfn-stack-creation](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/2dcb8ca3-fe5d-4bba-87a1-5780b7b1b324)
+   
    ![Userdata_Cfn](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/44512ab5-25d6-443e-99e3-5387296b059e)
+   **Resources**
    ![Userdata_Cfn_resources](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/2a0d14b6-9f6d-44c2-acc4-70ccaf50c53a)
  
 6. In a web browser, enter the WebsiteURL (you can get the WebsiteURL from the Outputs tab of the CloudFormation console).
   
-     ![Userdata_Cfn_ouputs](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/4e7c5c2a-3dae-4b65-9551-68344cd72729)
-    You should see a page similar to the picture below:
+   ![Userdata_Cfn_ouputs](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/4e7c5c2a-3dae-4b65-9551-68344cd72729)
+   
+   You should see a page similar to the picture below:
+   
    ![Weburl_img](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/bf513c2c-3075-439e-a6d6-421b5380a430)
 
-7. Follow these steps to clean up created resources:
-   * In the CloudFormation console , select the stack you have created in this lab. For example cfn-workshop-user-data.
+   **Congratulations, you have successfully bootstrapped an EC2 instance!**
+
+7. Follow these steps to **clean up** created resources:
+   * In the CloudFormation console, select the stack you have created in this lab. For example cfn-workshop-user-data.
    * In the top right corner, select Delete.
    * In the pop-up window, select Delete.
    * Wait for the stack to reach the DELETE_COMPLETE status. You need to periodically select Refresh to see the latest stack status.
