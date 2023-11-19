@@ -187,7 +187,7 @@ Outputs:
    
    You should see a page similar to the picture below:
    
-   ![Weburl_img](.images/Weburl_img.png)
+   ![Weburl_img](./images/Weburl_img.png)
 
    **Congratulations, you have successfully bootstrapped an EC2 instance!**
 
