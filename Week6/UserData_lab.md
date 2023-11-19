@@ -164,8 +164,7 @@ Outputs:
    ```
    cfn-lint user-data.yaml
    ```
- ![https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/blob/main/Week6/CLI_cfn-lint-user-data-check.png]
- ![CLI_cfn-lint-user-data-check](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/c57a7f69-cbd1-4caf-8992-d4fbadbecb5d)
+ ![](./images/CLI_cfn-lint-user-data-check.png)
 
 3. Use the AWS CLI to create the stack. Copy the below command and run.
    ```
@@ -173,22 +172,22 @@ Outputs:
    ```
 4. If the create-stack command was successfully sent, CloudFormation will return StackId.
  
-   ![CLI_cfn-stack-creation](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/3f4d9120-1de5-4d6a-8762-c000779f20e6)
+   ![CLI_cfn-stack-creation](./images/CLI_cfn-stack-creation.png)
 
 5. Open the AWS CloudFormation  console in a new tab and wait for the stack status to reach CREATE_COMPLETE. You need to periodically select Refresh to see the latest stack status.
-   ![Userdata_Cfn-stack-creation](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/2dcb8ca3-fe5d-4bba-87a1-5780b7b1b324)
+   ![Userdata_Cfn-stack-creation](./images/Userdata_Cfn-stack-creation.png)
    
-   ![Userdata_Cfn](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/44512ab5-25d6-443e-99e3-5387296b059e)
+   ![Userdata_Cfn](./images/Userdata_Cfn.png)
    **Resources**
-   ![Userdata_Cfn_resources](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/2a0d14b6-9f6d-44c2-acc4-70ccaf50c53a)
+   ![Userdata_Cfn_resources](./inages/Userdata_Cfn_resources.png)
  
 6. In a web browser, enter the WebsiteURL (you can get the WebsiteURL from the Outputs tab of the CloudFormation console).
   
-   ![Userdata_Cfn_ouputs](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/4e7c5c2a-3dae-4b65-9551-68344cd72729)
+   ![Userdata_Cfn_ouputs](./images/Userdata_Cfn_ouputs.png)
    
    You should see a page similar to the picture below:
    
-   ![Weburl_img](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/bf513c2c-3075-439e-a6d6-421b5380a430)
+   ![Weburl_img](Weburl_img.png)
 
    **Congratulations, you have successfully bootstrapped an EC2 instance!**
 
