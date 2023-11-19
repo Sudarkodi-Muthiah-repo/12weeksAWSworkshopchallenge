@@ -179,7 +179,7 @@ Outputs:
    
    ![Userdata_Cfn](./images/Userdata_Cfn.png)
    **Resources**
-   ![Userdata_Cfn_resources](./inages/Userdata_Cfn_resources.png)
+   ![Userdata_Cfn_resources](./images/Userdata_Cfn_resources.png)
  
 6. In a web browser, enter the WebsiteURL (you can get the WebsiteURL from the Outputs tab of the CloudFormation console).
   
@@ -187,7 +187,7 @@ Outputs:
    
    You should see a page similar to the picture below:
    
-   ![Weburl_img](Weburl_img.png)
+   ![Weburl_img](.images/Weburl_img.png)
 
    **Congratulations, you have successfully bootstrapped an EC2 instance!**
 
