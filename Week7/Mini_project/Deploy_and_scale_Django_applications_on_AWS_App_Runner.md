@@ -253,6 +253,49 @@ Secrets Manager returns to the list of secrets. If your new secret doesn't appea
  
 
 AWS Secrets Manager relies on AWS IAM to secure access to secrets. Therefore, you need to provide AWS App Runner the necessary permissions to access your newly created secret. AWS App Runner uses an instance role to provide permissions to AWS service actions that your service’s compute instances need. Follow this guide to create a new AWS IAM role in the AWS Management Console.
+**To create a role using a custom trust policy (console)**
+1. Open the IAM console at https://console.aws.amazon.com/iam/.
+
+2. Choose Roles and then choose Create role.
+
+3. Choose the Custom trust policy role type.
+
+4. In the Custom trust policy section, enter or paste the custom trust policy for the role.Add a trust policy that declares the AWS App Runner service principal tasks.apprunner.amazonaws.com as a trusted entity to the role:
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "tasks.apprunner.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```   
+6. Resolve any security warnings, errors, or general warnings generated during policy validation, and then choose Next.
+
+7. Select the check box next to the custom trust policy you created.
+8. Choose Next.
+9. Set a permissions boundary.limit the permissions afforded by the role to only the secret you created in AWS Secrets Manager identified by its Amazon Resource Name (ARN):
+   ```
+   {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "secretsmanager:GetSecretValue",
+            "Resource": "<Secret ARN>"
+        }
+    ]
+}
+```
+9. For Role Name, Enter role name.
+10. For Description, enter a description for the new role.
+11. Review the role and then choose Create role.
+
 
 
 
