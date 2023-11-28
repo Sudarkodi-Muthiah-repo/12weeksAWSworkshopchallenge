@@ -151,7 +151,7 @@ The following diagram outlines the steps for creating an App Runner service:
     
 Once your service reaches the status Running, choose the **default domain** for your service to see the deployed website.
 
-![](/Week7/images/Django-welcome-screen.png)
+![](/Week7/images/Apprunner11.png)
 
 ### Step 5 - Connecting a PostgreSQL database with Amazon RDS
 **Setting up an Amazon RDS for PostgreSQL database**
