@@ -148,8 +148,11 @@ The following diagram outlines the steps for creating an App Runner service:
     AWS App Runner will now pull your application source code from GitHub to build a container image and deploy it.
     ![](/Week7/images/Apprunner9.png)
     ![](/Week7/images/Apprunner10.png)
+    
 Once your service reaches the status Running, choose the **default domain** for your service to see the deployed website.
-Image
+
+![](/Week7/images/Django-welcome-screen.png)
+
 ### Step 5 - Connecting a PostgreSQL database with Amazon RDS
 **Setting up an Amazon RDS for PostgreSQL database**
 1. Go to the Amazon RDS console, and choose Create database.
