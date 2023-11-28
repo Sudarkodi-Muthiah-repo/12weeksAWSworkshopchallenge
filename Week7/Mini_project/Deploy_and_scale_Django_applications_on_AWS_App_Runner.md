@@ -168,16 +168,33 @@ Image
 ![](/Week7/images/Apprunner_new_db3.png)
 
 7. Choose Create database.
+
+![](/Week7/images/Apprunner_DB2.png)
  
 ### Step 6 - Preparing the PostgreSQL database for Django
 To connect to your PostgreSQL database from the Django application, you should create a new database user and database just for Django. 
 To do so, start at Amazon Elastic Compute Cloud (Amazon EC2) instance with an Amazon Linux 2023 AMI in the default VPC and with the default security group (the same you used for the database instance).
 
-Image
+![](/Week7/images/Apprunner_new_DB3.png)
 
 SSH into the instance, install PostgreSQL, and connect to your Amazon RDS instance:
+```
+sudo yum install postgresql15 -y
+psql -h <Your RDS endpoint> -p 5432 -U postgres -W
+```
 
-Image
+![](/Week7/images/db_creation.png)
+
+Create a new django database and user. Make sure to replace <Secure password> with an actual password. While still in the psql shell, switch to the newly created Django database and update permissions for the public schema with the following commands. You’ll be asked to re-enter the password of the postgres user:
+
+![](/Week7/images/db_user_creation.png)
+
+
+Your database is now ready to be used with Django.
+
+
+
+
 
 
 
