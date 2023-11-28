@@ -261,7 +261,7 @@ AWS Secrets Manager relies on AWS IAM to secure access to secrets. Therefore, yo
 3. Choose the Custom trust policy role type.
    ![](/Week7/images/Apprunner_new_IAMRole1.png)
    
-5. In the Custom trust policy section, enter or paste the custom trust policy for the role.Add a trust policy that declares the AWS App Runner service principal tasks.apprunner.amazonaws.com as a trusted entity to the role:
+4. In the Custom trust policy section, enter or paste the custom trust policy for the role.Add a trust policy that declares the AWS App Runner service principal tasks.apprunner.amazonaws.com as a trusted entity to the role:
 ```
 {
   "Version": "2012-10-17",
@@ -277,11 +277,11 @@ AWS Secrets Manager relies on AWS IAM to secure access to secrets. Therefore, yo
 }
 ```
  ![](/Week7/images/Apprunner_new_IAMRole2.png)
-6. Resolve any security warnings, errors, or general warnings generated during policy validation, and then choose Next.
+5. Resolve any security warnings, errors, or general warnings generated during policy validation, and then choose Next.
 
-7. Select the check box next to the custom trust policy you created.
-8. Choose Next.
-9. Set a permissions boundary.limit the permissions afforded by the role to only the secret you created in AWS Secrets Manager identified by its Amazon Resource Name (ARN):
+6. Select the check box next to the custom trust policy you created.
+7. Choose Next.
+8. Set a permissions boundary. Limit the permissions afforded by the role to only the secret you created in AWS Secrets Manager identified by its Amazon Resource Name (ARN).
 ```
 {
     "Version": "2012-10-17",
@@ -295,23 +295,34 @@ AWS Secrets Manager relies on AWS IAM to secure access to secrets. Therefore, yo
 }
 ```
 
+
 9. For Role Name, Enter role name.
 10. For Description, enter a description for the new role.
      ![](/Week7/images/Apprunner_new_IAMRole3.png)
-12. Review the role and then choose Create role.
+11. Review the role and then choose Create role.
 
 ### Step 8 - Updating the AWS App Runner configuration
-Select your **django-apprunner** service in the AWS App Runner console. Choose the Configuration
+1. Select your **django-apprunner** service in the AWS App Runner console. Choose the Configuration
 Next to Configure service, choose **Edit**.
+
 Image
-Under **Security**, for Instance role, select the **AppRunnerAccessRole** AWS IAM role you created in the previous step.
+
+2. Under **Security**, for Instance role, select the **AppRunnerAccessRole** AWS IAM role you created in the previous step.
+
 Image
-Under **Networking**, for Outgoing network traffic, create a new VPC connector by choosing **Add new**.
+
+3. Under **Networking**, for Outgoing network traffic, create a new VPC connector by choosing **Add new**.
+
 Image
-Select the **default VPC** and its subnets as well as the default security group. 
+
+4. Select the **default VPC** and its subnets as well as the default security group. 
+
 Image
-Choose **Save changes**.
+
+6. Choose **Save changes**.
+   
 Your AWS App Runner service enters the **Operation in progress** state while the new configuration is being applied.
+
 Image
 
 
