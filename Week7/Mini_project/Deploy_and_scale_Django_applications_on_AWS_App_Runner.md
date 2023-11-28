@@ -52,7 +52,7 @@ pip freeze > requirements.txt
 ```
 Before you can deploy to AWS App Runner, you need to make some changes to the Django settings.py file located in django-apprunner/myproject/myproject/settings.py.
 First, we need to update the ALLOWED_HOSTS to allow AWS App Runner to serve the Django application:
-** settings.py **
+**settings.py**
 ```
 ALLOWED_HOSTS = [".awsapprunner.com"]
 ```
@@ -80,11 +80,11 @@ MIDDLEWARE = [
 ]
 ```
 ### step 3 - Deploying to AWS App Runner
-** Configuring the deployment **
+**Configuring the deployment**
 * AWS App Runner enables you to deploy from a GitHub repository or via a Docker image. In this walkthrough, you’ll use the code-based deployment from GitHub.
 * In the case of AWS App Runner code-based deployments, you can define deployment configuration in the AWS Management Console or using a configuration file in your source code repository. When choosing the configuration file, any changes to the deployment options are tracked similarly to how changes to the source code are tracked.
 * Create an apprunner.yaml file in the django-apprunner/myproject directory to use the configuration file approach:
-** apprunner.yaml **
+**apprunner.yaml**
 ```
 version: 1.0
 runtime: python3
@@ -99,12 +99,13 @@ run:
     port: 8000
 ```
 To start our application, AWS App Runner must run a number of commands, such as collectstatic for serving static files and gunicorn for starting the WSGI server. Create a startup.sh file in the django-apprunner/myproject directory to list these commands:
-** startup.sh **
+**startup.sh**
 ```
 #!/bin/bash
 python manage.py collectstatic && gunicorn --workers 2 myproject.wsgi
 ```
 Create a .gitignore file in the django-apprunner/myproject directory:
+**.gitingnore**
 ```
 *.log
 *.pot
@@ -114,10 +115,10 @@ db.sqlite3
 media
 staticfiles
 ```
-Initialize a new Git repository in the django-apprunner/myproject directory and push it to GitHub. Follow the below link for instructions on working with GitHub.
-![](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github)
+Initialize a new Git repository in the **django-apprunner/myproject** directory and push it to GitHub. Follow the below link for instructions on working with GitHub.
+[](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github)
 
-** My GitHub repo: ** ![](https://github.com/Sudarkodi-Muthiah-repo/Django_on_aws_apprunner)
+**My GitHub repo:** [](https://github.com/Sudarkodi-Muthiah-repo/Django_on_aws_apprunner)
 
 
 
