@@ -81,7 +81,7 @@ MIDDLEWARE = [
     # ...
 ]
 ```
-### step 3 - Deploying to AWS App Runner
+### Step 3 - Deploying to AWS App Runner
 **Configuring the deployment**
 * AWS App Runner enables you to deploy from a GitHub repository or via a Docker image. In this walkthrough, you’ll use the code-based deployment from GitHub.
 * In the case of AWS App Runner code-based deployments, you can define deployment configuration in the AWS Management Console or use a configuration file in your source code repository. When choosing the configuration file, any changes to the deployment options are tracked similarly to how changes to the source code are tracked.
@@ -156,18 +156,27 @@ Image
 2. To choose a database creation method, choose Easy Create. For Engine type, select PostgreSQL.
    
 ![](/Week7/images/Apprunner_new_db1.png)
+
 3. For DB instance size, select Free tier. 
 4. For DB instance identifier, input django-apprunner-db.
 5. Leave the initial username as postgres and set an initial password.
 
 ![](/Week7/images/Apprunner_new_db2.png)
+
 6. Expand View default settings for Easy create and confirm the settings are the same as on the following image:
+   
 ![](/Week7/images/Apprunner_new_db3.png)
+
 7. Choose Create database.
+ 
 ### Step 6 - Preparing the PostgreSQL database for Django
-To connect to your PostgreSQL database from the Django application, you should create a new database user and database just for Django. To do so, start at Amazon Elastic Compute Cloud (Amazon EC2) instance or AWS Cloud9 instance with an Amazon Linux 2023 AMI in the default VPC and with the default security group (the same you used for the database instance).
+To connect to your PostgreSQL database from the Django application, you should create a new database user and database just for Django. 
+To do so, start at Amazon Elastic Compute Cloud (Amazon EC2) instance with an Amazon Linux 2023 AMI in the default VPC and with the default security group (the same you used for the database instance).
+
 Image
-SSH into the instance, install PostgreSQL and connect to your Amazon RDS instance:
+
+SSH into the instance, install PostgreSQL, and connect to your Amazon RDS instance:
+
 Image
 
 
