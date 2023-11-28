@@ -9,7 +9,7 @@
 * AWS App Runner builds and deploys web applications automatically, load balances traffic with encryption, scales to meet your traffic needs, and allows for the configuration of how services are accessed and communicate with other AWS applications in a private Amazon VPC.
 * App Runner connects directly to your code or image repository. It provides an automatic integration and delivery pipeline with fully managed operations, high performance, scalability, and security.
 
-![](./images/create-service-workflow.png)
+![](./images/app-deploy-lifecycle.png)
 
 ## Key Features of AWS APP Runner
 ### Accelerate application development and deployment
