@@ -153,16 +153,22 @@ Image
 ### Step 5 - Connecting a PostgreSQL database with Amazon RDS
 **Setting up an Amazon RDS for PostgreSQL database**
 1. Go to the Amazon RDS console, and choose Create database.
-2. To choose a database creation method, choose Easy Create.
-For Engine type, select PostgreSQL.
-Image
-3. For DB instance size, select Free tier. Learn more about the RDS Free Tier here.
+2. To choose a database creation method, choose Easy Create. For Engine type, select PostgreSQL.
+   
+![](/Week7/images/Apprunner_new_db1.png)
+3. For DB instance size, select Free tier. 
 4. For DB instance identifier, input django-apprunner-db.
 5. Leave the initial username as postgres and set an initial password.
-Image
-6. Expand View default settings for Easy create and confirm the settings are the same as on the following image:
-Image
 
+![](/Week7/images/Apprunner_new_db2.png)
+6. Expand View default settings for Easy create and confirm the settings are the same as on the following image:
+![](/Week7/images/Apprunner_new_db3.png)
+7. Choose Create database.
+### Step 6 - Preparing the PostgreSQL database for Django
+To connect to your PostgreSQL database from the Django application, you should create a new database user and database just for Django. To do so, start at Amazon Elastic Compute Cloud (Amazon EC2) instance or AWS Cloud9 instance with an Amazon Linux 2023 AMI in the default VPC and with the default security group (the same you used for the database instance).
+Image
+SSH into the instance, install PostgreSQL and connect to your Amazon RDS instance:
+Image
 
 
 
