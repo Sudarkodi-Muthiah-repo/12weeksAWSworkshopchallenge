@@ -301,29 +301,65 @@ AWS Secrets Manager relies on AWS IAM to secure access to secrets. Therefore, yo
      ![](/Week7/images/Apprunner_new_IAMRole3.png)
 11. Review the role and then choose Create role.
 
-### Step 8 - Updating the AWS App Runner configuration
+### Step 9 - Updating the AWS App Runner configuration
 1. Select your **django-apprunner** service in the AWS App Runner console. Choose the Configuration
 Next to Configure service, choose **Edit**.
 
-Image
+![](/Week7/images/Apprunner_config2.png)
 
 2. Under **Security**, for Instance role, select the **AppRunnerAccessRole** AWS IAM role you created in the previous step.
 
-Image
+![](/Week7/images/Apprunner_config3.png)
 
 3. Under **Networking**, for Outgoing network traffic, create a new VPC connector by choosing **Add new**.
 
-Image
+![](/Week7/images/Apprunner_config4.png)
 
 4. Select the **default VPC** and its subnets as well as the default security group. 
 
-Image
+![](/Week7/images/Apprunner_config5.png)
 
 6. Choose **Save changes**.
    
 Your AWS App Runner service enters the **Operation in progress** state while the new configuration is being applied.
 
-Image
+![](/Week7/images/Apprunner_config7.png)
+
+Once the service is back in the Running state, you can update **apprunner.yaml** to reference the secret stored in AWS Secrets Manager via its ARN (i.e., replace the ARN with your own value):
+**apprunner.yaml**
+```
+version: 1.0
+runtime: python3
+build:
+  commands:
+    build:
+      - pip install -r requirements.txt
+run:
+  runtime-version: 3.8.16
+  command: sh startup.sh
+  network:
+    port: 8000
+  secrets:
+    - name: DATABASE_SECRET
+      value-from: "arn:aws:secretsmanager:eu-west-1:111122223333:secret:my-django-database-secret-kh2vEL"
+```
+Finally, push all updates to GitHub. Because you have automated deployments from GitHub enabled, AWS App Runner redeploys your service and your Django application connects to the PostgreSQL database.
+
+### Considerations for scaling Django on AWS App Runner
+You have successfully deployed your Django application to an autoscaling compute layer with AWS App Runner and connected to a managed PostgreSQL database with Amazon RDS for PostgreSQL. 
+AWS App Runner automatically scales compute resources for your AWS App Runner service up and down based on its autoscaling configuration. This configuration defines the minimum and maximum number of provisioned instances for your service as the min size and max size. AWS App Runner increases and decreases the number of instances within this range based on the maximum number of concurrent requests per instance, the max concurrency. When the number of concurrent requests exceeds this limit, AWS App Runner scales up the service.
+
+You can adjust the per-instance CPU and memory configuration for your AWS App Runner service from 0.25 vCPUs and 0.5 GB of RAM to 4 vCPUs and 12 GB of RAM, respectively. To run your application efficiently on AWS App Runner, adjust both the CPU and memory configuration and the max concurrency to fit your workload’s requirements and use load testing to validate your setup.
+
+AWS App Runner uses AWS Fargate as the underlying compute engine to deploy instances of your application.
+
+### Cleaning up
+To avoid incurring charges, delete any resources you created as part of this walkthrough that you no longer need:
+
+1. Delete the AWS App Runner service by selecting the **django-apprunner** service in the AWS App Runner console. Choose Actions and Delete service. Confirm deletion.
+2. Delete the Amazon RDS database instance by selecting the **django-apprunner-db** instance in the Amazon RDS console. Choose Actions and Delete. Confirm deletion.
+3. Delete the AWS Secrets Manager secret by selecting the **my-django-database-secret** secret in the AWS Secrets Manager console. Choose Actions and Delete         secret. Confirm deletion.
+4. Delete the AWS App Runner IAM role by selecting the **AppRunnerAccessRole** role in the IAM console. Choose Actions and Delete role. Confirm deletion.
 
 
 
