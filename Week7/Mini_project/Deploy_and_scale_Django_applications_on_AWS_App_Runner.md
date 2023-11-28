@@ -13,8 +13,31 @@ The solution you are going to set up as part of this walkthrough comprises the f
 * An RDS for PostgreSQL database instance running in your own customer-managed VPC. App Runner privately connects to the RDS instance using AWS PrivateLink.
 * AWS Secrets Manager to securely store and access the database secret from App Runner.
 * A GitHub repository from which the Django application source code will be deployed.
-### Walkthrough
+
+## Walkthrough
 ### Step 1 - Setting up a sample Django project
-As a first step, create a project directory and set up a Python virtual environment using the pipenv
+As a first step, create a project directory and set up a Python virtual environment using the pipenv.
+```
+mkdir django-apprunner
+cd django-apprunner
+pipenv install
+```
+Next, activate the virtual environment and install Django:
+```
+pipenv shell
+pipenv install django
+```
+start a new Django project using the django-admin.
+```
+django-admin startproject myproject
+cd myproject
+```
+Let’s test if our application runs correctly:
+```
+python manage.py runserver
+```
+If you visit http://127.0.0.1:8000 in a web browser, then you’ll see the default Django welcome screen:
+Image
+
 
 
