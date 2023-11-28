@@ -129,24 +129,39 @@ The following diagram outlines the steps for creating an App Runner service:
 ![](/Week7/images/create-service-workflow.png)
 1. Navigate to the **AWS App Runner service** in the AWS Management Console and choose **Create an App Runner service**
    ![](/Week7/images/Apprunner1.png)
-4. For Source, choose **Source code repository**
+2. For Source, choose **Source code repository**
    ![](/Week7/images/Apprunner2.png)
-6. Under **Connect to GitHub**, choose **Add new** and follow the instructions to connect to your GitHub account.
+3. Under **Connect to GitHub**, choose **Add new** and follow the instructions to connect to your GitHub account.
    ![](/Week7/images/Apprunner3.png)
    ![](/Week7/images/Apprunner4.png)
    ![](/Week7/images/Apprunner5.png)
-8. For **Deployment settings**, choose **Automatic**
+4. For **Deployment settings**, choose **Automatic**
    ![](/Week7/images/Apprunner6.png)
-10. Choose Next.
-11. For **Build settings**, choose Use a configuration file. AWS App Runner automatically picks up the **apprunner.yaml** file stored in our repository.
+5. Choose Next.
+6. For **Build settings**, choose Use a configuration file. AWS App Runner automatically picks up the **apprunner.yaml** file stored in our repository.
     ![](/Week7/images/Apprunner7.png)
-13. Choose Next.
-14. For **Service name**, enter **django-apprunner**
+7. Choose Next.
+8. For **Service name**, enter **django-apprunner**
     ![](/Week7/images/Apprunner8.png)
-16. Leave the remaining settings as per default for now and choose Next.
-17. Review the configuration and choose **Create & deploy**.
+9. Leave the remaining settings as per default for now and choose Next.
+10. Review the configuration and choose **Create & deploy**.
+    AWS App Runner will now pull your application source code from GitHub to build a container image and deploy it.
     ![](/Week7/images/Apprunner9.png)
     ![](/Week7/images/Apprunner10.png)
+Once your service reaches the status Running, choose the **default domain** for your service to see the deployed website.
+Image
+### Step 5 - Connecting a PostgreSQL database with Amazon RDS
+**Setting up an Amazon RDS for PostgreSQL database**
+1. Go to the Amazon RDS console, and choose Create database.
+2. To choose a database creation method, choose Easy Create.
+For Engine type, select PostgreSQL.
+Image
+3. For DB instance size, select Free tier. Learn more about the RDS Free Tier here.
+4. For DB instance identifier, input django-apprunner-db.
+5. Leave the initial username as postgres and set an initial password.
+Image
+6. Expand View default settings for Easy create and confirm the settings are the same as on the following image:
+Image
 
 
 
