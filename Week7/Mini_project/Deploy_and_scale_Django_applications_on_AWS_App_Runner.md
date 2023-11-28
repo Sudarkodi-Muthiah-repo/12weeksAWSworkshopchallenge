@@ -175,7 +175,7 @@ Image
 To connect to your PostgreSQL database from the Django application, you should create a new database user and database just for Django. 
 To do so, start at Amazon Elastic Compute Cloud (Amazon EC2) instance with an Amazon Linux 2023 AMI in the default VPC and with the default security group (the same you used for the database instance).
 
-![](/Week7/images/Apprunner_new_DB3.png)
+![](/Week7/images/Apprunner_DB3.png)
 
 SSH into the instance, install PostgreSQL, and connect to your Amazon RDS instance:
 ```
@@ -227,9 +227,10 @@ AWS Secrets Manager helps you manage, retrieve, and rotate database credentials,
 1. Open the Secrets Manager console at https://console.aws.amazon.com/secretsmanager/.
 
 2. Choose **Store a new secret**
-   Image
 
-3. On the Choose secret type page, do the following:
+    ![](/Week7/images/Apprunner_new_SM1.png)
+
+4. On the Choose secret type page, do the following:
 
     a. For Secret type, choose **Other type of secret**.
     b. For the secret’s key, input **DATABASE_URL**. For the value, define the database URL following the schema supported by dj-database-url as follows:
@@ -237,16 +238,19 @@ AWS Secrets Manager helps you manage, retrieve, and rotate database credentials,
    postgres://django:<Secure password>@<RDS endpoint>/django
    ```
     c. Choose Next.
-   Image
-   Image
-5. On the Configure secret page, do the following:
+   ![](/Week7/images/Apprunner_new_SM2.png)
+   
+   ![](/Week7/images/Apprunner_new_SM3.png)
+   
+6. On the Configure secret page, do the following:
 
     Enter a descriptive Secret name and Description. Secret names must contain 1-512 Unicode characters.
-6. On the Review page, review your secret details, and then choose **Store**.
+7. On the Review page, review your secret details, and then choose **Store**.
 
 Secrets Manager returns to the list of secrets. If your new secret doesn't appear, choose the refresh button.
 
-Image
+ ![](/Week7/images/Apprunner_new_SM4.png)
+ 
 
 AWS Secrets Manager relies on AWS IAM to secure access to secrets. Therefore, you need to provide AWS App Runner the necessary permissions to access your newly created secret. AWS App Runner uses an instance role to provide permissions to AWS service actions that your service’s compute instances need. Follow this guide to create a new AWS IAM role in the AWS Management Console.
 
