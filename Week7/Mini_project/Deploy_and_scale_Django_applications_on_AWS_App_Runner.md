@@ -127,16 +127,26 @@ https://docs.github.com/en/migrations/importing-source-code/using-the-command-li
 ### step 4 -Creating and deploying the AWS App Runner service
 The following diagram outlines the steps for creating an App Runner service:
 ![](/Week7/images/create-service-workflow.png)
-1. Navigate to the AWS App Runner service in the AWS Management Console and choose Create an App Runner service. 
-2. For Source, choose Source code repository.
-3. Under Connect to GitHub, choose Add new and follow the instructions to connect to your GitHub account.
-4. For Deployment settings, choose Automatic.
-5. Choose Next.
-6. For Build settings, choose Use a configuration file. AWS App Runner automatically picks up the apprunner.yaml file stored in our repository.
-7. Choose Next.
-8. For Service name, enter django-apprunner.
-9. Leave the remaining settings as per default for now and choose Next.
-10. Review the configuration and choose Create & deploy.
+1. Navigate to the **AWS App Runner service** in the AWS Management Console and choose **Create an App Runner service**
+   ![](/Week7/images/Apprunner1.png)
+4. For Source, choose **Source code repository**
+   ![](/Week7/images/Apprunner2.png)
+6. Under **Connect to GitHub**, choose **Add new** and follow the instructions to connect to your GitHub account.
+   ![](/Week7/images/Apprunner3.png)
+   ![](/Week7/images/Apprunner4.png)
+   ![](/Week7/images/Apprunner5.png)
+8. For **Deployment settings**, choose **Automatic**
+   ![](/Week7/images/Apprunner6.png)
+10. Choose Next.
+11. For **Build settings**, choose Use a configuration file. AWS App Runner automatically picks up the **apprunner.yaml** file stored in our repository.
+    ![](/Week7/images/Apprunner7.png)
+13. Choose Next.
+14. For **Service name**, enter **django-apprunner**
+    ![](/Week7/images/Apprunner8.png)
+16. Leave the remaining settings as per default for now and choose Next.
+17. Review the configuration and choose **Create & deploy**.
+    ![](/Week7/images/Apprunner9.png)
+    ![](/Week7/images/Apprunner10.png)
 
 
 
