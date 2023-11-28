@@ -6,7 +6,8 @@ Django is an open-source web application framework written in Python. It has man
 ## AWS App Runner
 AWS App Runner makes it easy to deploy Django applications directly from a source code repository or container image. AWS App Runner provisions resources, automatically scales the number of containers up or down to meet the needs of your application, and load balances traffic to ensure high availability.
 ## Solution Architecture
-![](./images/Project-overview.png)
+
+![](/assets/images/Project-overview.png)
 
 The solution you are going to set up as part of this walkthrough comprises the following elements as shown in the architecture diagram:
 * An AWS App Runner service running your Django application in an AWS-managed VPC.
@@ -38,7 +39,7 @@ python manage.py runserver
 ```
 If you visit http://127.0.0.1:8000 in a web browser, then you’ll see the default Django welcome screen:
 
-![](./images/Django-welcome-screen.png)
+![](/assets/images/Django-welcome-screen.png)
 
 ### Step 2 - Preparing the application for deployment
 Let’s install these two packages in our virtual environment: WSGI server such as gunicorn and WhiteNoise as a simple yet scalable option for serving static files.
