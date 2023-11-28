@@ -191,6 +191,66 @@ Create a new django database and user. Make sure to replace <Secure password> wi
 
 
 Your database is now ready to be used with Django.
+### Step 7 - Configuring the Django sample application for PostgreSQL
+Install the psycopg package as a Python database adapter for PostgreSQL. Also, install dj-database-url so that you can easily set up the database connection form an environment variable:
+```
+pip install psycopg2-binary==2.9.6 dj-database-url==1.3.0
+```
+Update the requirements file to include these new dependencies:
+```
+pip freeze > requirements.txt
+```
+Let’s update the **settings.py** to use PostgreSQL as well. First, adapt the imports as follows:
+```
+from pathlib import Path
+import json
+import dj_database_url
+from os import environ
+```
+Next, replace the DATABASES setting so that SQLite can be used in development, but PostgreSQL is used if a DATABASE_SECRET is passed as environment variable:
+```
+if "DATABASE_SECRET" in environ:
+    database_secret = environ.get("DATABASE_SECRET")
+    db_url = json.loads(database_secret)["DATABASE_URL"]
+    DATABASES = {"default": dj_database_url.parse(db_url)}
+else:
+    DATABASES = {"default": dj_database_url.parse("sqlite:///db.sqlite3")}
+```
+Finally, instruct AWS App Runner to run database migrations each time your application starts by editing startup.sh:
+```
+#!/bin/bash
+python manage.py migrate && python manage.py collectstatic && gunicorn --workers 2 myproject.wsgi
+```
+### Step 8 - Securely store the database secret in AWS Secrets Manager
+AWS Secrets Manager helps you manage, retrieve, and rotate database credentials, API keys, and other secrets throughout their lifecycles. AWS App Runner allows us to inject secrets from AWS Secrets Manager during application runtime as environment variables. 
+
+1. Open the Secrets Manager console at https://console.aws.amazon.com/secretsmanager/.
+
+2. Choose **Store a new secret**
+   Image
+
+3. On the Choose secret type page, do the following:
+
+    a. For Secret type, choose **Other type of secret**.
+    b. For the secret’s key, input **DATABASE_URL**. For the value, define the database URL following the schema supported by dj-database-url as follows:
+   ```
+   postgres://django:<Secure password>@<RDS endpoint>/django
+   ```
+    c. Choose Next.
+   Image
+   Image
+5. On the Configure secret page, do the following:
+
+    Enter a descriptive Secret name and Description. Secret names must contain 1-512 Unicode characters.
+6. On the Review page, review your secret details, and then choose **Store**.
+
+Secrets Manager returns to the list of secrets. If your new secret doesn't appear, choose the refresh button.
+
+Image
+
+AWS Secrets Manager relies on AWS IAM to secure access to secrets. Therefore, you need to provide AWS App Runner the necessary permissions to access your newly created secret. AWS App Runner uses an instance role to provide permissions to AWS service actions that your service’s compute instances need. Follow this guide to create a new AWS IAM role in the AWS Management Console.
+
+
 
 
 
