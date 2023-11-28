@@ -121,9 +121,22 @@ media
 staticfiles
 ```
 Initialize a new Git repository in the **django-apprunner/myproject** directory and push it to GitHub. Follow the below link for instructions on working with GitHub.
-[](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github)
+https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github
 
 **My GitHub repo:** https://github.com/Sudarkodi-Muthiah-repo/Django_on_aws_apprunner
+### step 4 -Creating and deploying the AWS App Runner service
+The following diagram outlines the steps for creating an App Runner service:
+![](/Week7/images/create-service-workflow.png)
+1. Navigate to the AWS App Runner service in the AWS Management Console and choose Create an App Runner service. 
+2. For Source, choose Source code repository.
+3. Under Connect to GitHub, choose Add new and follow the instructions to connect to your GitHub account.
+4. For Deployment settings, choose Automatic.
+5. Choose Next.
+6. For Build settings, choose Use a configuration file. AWS App Runner automatically picks up the apprunner.yaml file stored in our repository.
+7. Choose Next.
+8. For Service name, enter django-apprunner.
+9. Leave the remaining settings as per default for now and choose Next.
+10. Review the configuration and choose Create & deploy.
 
 
 
