@@ -7,7 +7,7 @@ Django is an open-source web application framework written in Python. It has man
 AWS App Runner makes it easy to deploy Django applications directly from a source code repository or container image. AWS App Runner provisions resources, automatically scales the number of containers up or down to meet the needs of your application, and load balances traffic to ensure high availability.
 ## Solution Architecture
 
-![](/assets/images/Project-overview.png)
+![](/Week7/images/Project-overview.png)
 
 The solution you are going to set up as part of this walkthrough comprises the following elements as shown in the architecture diagram:
 * An AWS App Runner service running your Django application in an AWS-managed VPC.
@@ -39,7 +39,7 @@ python manage.py runserver
 ```
 If you visit http://127.0.0.1:8000 in a web browser, then you’ll see the default Django welcome screen:
 
-![](/assets/images/Django-welcome-screen.png)
+![](/Week7/images/Django-welcome-screen.png)
 
 ### Step 2 - Preparing the application for deployment
 Let’s install these two packages in our virtual environment: WSGI server such as gunicorn and WhiteNoise as a simple yet scalable option for serving static files.
@@ -80,5 +80,45 @@ MIDDLEWARE = [
 ]
 ```
 ### step 3 - Deploying to AWS App Runner
+** Configuring the deployment **
+* AWS App Runner enables you to deploy from a GitHub repository or via a Docker image. In this walkthrough, you’ll use the code-based deployment from GitHub.
+* In the case of AWS App Runner code-based deployments, you can define deployment configuration in the AWS Management Console or using a configuration file in your source code repository. When choosing the configuration file, any changes to the deployment options are tracked similarly to how changes to the source code are tracked.
+* Create an apprunner.yaml file in the django-apprunner/myproject directory to use the configuration file approach:
+** apprunner.yaml **
+```
+version: 1.0
+runtime: python3
+build:
+  commands:
+    build:
+      - pip install -r requirements.txt
+run:
+  runtime-version: 3.8.16
+  command: sh startup.sh
+  network:
+    port: 8000
+```
+To start our application, AWS App Runner must run a number of commands, such as collectstatic for serving static files and gunicorn for starting the WSGI server. Create a startup.sh file in the django-apprunner/myproject directory to list these commands:
+** startup.sh **
+```
+#!/bin/bash
+python manage.py collectstatic && gunicorn --workers 2 myproject.wsgi
+```
+Create a .gitignore file in the django-apprunner/myproject directory:
+```
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+staticfiles
+```
+Initialize a new Git repository in the django-apprunner/myproject directory and push it to GitHub. Follow the below link for instructions on working with GitHub.
+![](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github)
+
+** My GitHub repo: ** ![](https://github.com/Sudarkodi-Muthiah-repo/Django_on_aws_apprunner)
+
+
 
 
