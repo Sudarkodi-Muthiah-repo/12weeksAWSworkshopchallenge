@@ -39,5 +39,44 @@ python manage.py runserver
 If you visit http://127.0.0.1:8000 in a web browser, then you’ll see the default Django welcome screen:
 Image
 
+### Step 2 - Preparing the application for deployment
+Let’s install these two packages in our virtual environment: WSGI server such as gunicorn and WhiteNoise as a simple yet scalable option for serving static files.
+```
+pipenv install gunicorn==20.1.0 whitenoise==6.4.0
+```
+Output all installed packages in a requirements file:
+```
+pip freeze > requirements.txt
+```
+Before you can deploy to AWS App Runner, you need to make some changes to the Django settings.py file located in django-apprunner/myproject/myproject/settings.py.
+First, we need to update the ALLOWED_HOSTS to allow AWS App Runner to serve the Django application:
+** settings.py **
+```
+ALLOWED_HOSTS = [".awsapprunner.com"]
+```
+Next, update and add the STATIC_URL and STATIC_ROOT settings for AWS App Runner and define WhiteNoise as staticfiles storage by adjusting the STORAGES setting:
+```
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+```
+Finally, add WhiteNoise to the middleware list:
+```
+MIDDLEWARE = [
+    # ...
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # ...
+]
+```
+### step 3 - Deploying to AWS App Runner
 
 
