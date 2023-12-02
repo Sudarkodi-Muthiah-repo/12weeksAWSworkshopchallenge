@@ -26,6 +26,24 @@ You are taken back to the Create table page. Leave all remaining options with th
 Scroll down and choose Create table.
 
 Table Inage
+
 > Note: It takes a few seconds to provision the table. As soon as it finishes, the table is ready to be used.
 > You can select your acme_products table and browse through the navigation tabs to view available configuration options for the table.
+
 🎉Congratulations! You have successfully created a table in Amazon DynamoDB that will serve as your products catalog database.
+## AWS Lambda
+### CREATE PRODUCT LAMBDA FUNCTION CREATION
+* At the top of the DynamoDB Management Console, in the search bar, search for and choose Lambda
+* In the left menu, choose Functions.
+* Choose Create function .
+* Choose  Author from scratch .
+* Configure the following options from the Basic information section.
+* Function name: acme_create_product
+* Runtime: Python 3.9 
+* Archictecture:  x86_64
+Permissions:
+* Expand  Change default execution role.
+* Execution role:  Use an existing role
+* Existing role: ACMEAPILambdaExecutionRole 
+> Note: This role grants this Lambda function and other permissions needed to interact with DynamoDB.
+* Choose Create function .
