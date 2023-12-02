@@ -168,5 +168,46 @@ It will open a second tab called Execution results and, if the test runs without
 
 >  Note: If you want to double check the updated data, you can go back to DynamoDB and browse items there.
 
+## Step 2.4 DELETE PRODUCT LAMBDA FUNCTION CREATION
+* Back to your Lambda functions main screen.
+* Choose Create function .
+* Choose  Author from scratch .
+Configure the following options from the Basic information section.
+* Function name: acme_delete_product
+* Runtime: Python 3.9 
+* Architecture:  x86_64
+Permissions:
+* Expand  Change default execution role.
+* Execution role:  Use an existing role
+* Existing role: ACMEAPILambdaExecutionRole 
+* Choose Create function
+
+  Lambda Image
+
+* Scroll down to the Code source section.
+* Copy and paste the code below, replacing the existing code in the lambda_function.py file.
+![acme_delete_product.py](/Week8/Code8/acme_delete_product.py)
+* After pasting the code, choose Deploy
+This function is going to be used to delete a product by its uuid.
+* Choose Test 
+The Configure test event dialog window opens.
+Configure the following options.
+* Test event action:  Create new event
+* Event name: ACMEDeleteProductTest
+* Event sharing settings:  Private
+* Template - optional: hello-world
+* Event JSON: Copy and paste the code below.
+```
+{
+    "uuid": "replace_with_a_valid_uuid"
+}
+```
+ > Caution: You have to get a valid uuid in your DynamoDB table items to test.
+* Scroll down and choose Save to finish the test setup.
+* Choose Test  
+It will open a second tab called Execution results and, if the test runs without errors, you see a Response with an HTTPStatusCode equal to 200.
+The data related to the uuid you passed was deleted from DynamoDB.
+
+Image
 
 
