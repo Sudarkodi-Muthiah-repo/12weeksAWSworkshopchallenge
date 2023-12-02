@@ -4,7 +4,7 @@ you’ll explore a real-world scenario as an experienced engineer hired to help 
 
 With all this information in mind, you’ve decided to rely on an AWS serverless architecture based on Amazon API Gateway, AWS Lambda and Amazon DynamoDB whereas the products catalog will reside on DynamoDB.
 ## Solution Architecture
-![](/mini-project/Images/Architecture.png)
+![Architecture](Images/Architecture.png)
 ### Step 1 create a table in Amazon DynamoDB that will serve as your products catalog database
 At the top of the AWS Management Console, in the search bar, search for and choose DynamoDB. On the left navigation menu, choose Tables.
 * Choose Create table.
