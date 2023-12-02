@@ -182,11 +182,12 @@ Permissions:
 * Existing role: ACMEAPILambdaExecutionRole 
 * Choose Create function
 
-  Lambda Image
+  
+![Lambda Image](Images/delete_product_lambda3.png)
 
 * Scroll down to the Code source section.
 * Copy and paste the code below, replacing the existing code in the lambda_function.py file.
-![acme_delete_product.py](/Week8/Code8/acme_delete_product.py)
+![acme_delete_product.py](/Week8/Code/acme_delete_product.py)
 * After pasting the code, choose Deploy
 This function is going to be used to delete a product by its uuid.
 * Choose Test 
@@ -208,6 +209,6 @@ Configure the following options.
 It will open a second tab called Execution results and, if the test runs without errors, you see a Response with an HTTPStatusCode equal to 200.
 The data related to the uuid you passed was deleted from DynamoDB.
 
-Image
+![Lambda Image](Images/delete_product_lambda8.png)
 
 
