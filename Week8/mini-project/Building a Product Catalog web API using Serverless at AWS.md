@@ -224,7 +224,9 @@ Permissions:
 * Execution role:  Use an existing role
 * Existing role: ACMEAPILambdaExecutionRole 
 * Choose Create function
-Image
+  
+  ![Lambda Image](Images/list_product_lambda3.png)
+  
 * Scroll down to the Code source section.
 * Copy and paste the code below, replacing the existing code in the lambda_function.py file.
   ![acme_list_products.py](/Week8/Code/acme_list_products.py)
@@ -249,6 +251,8 @@ It is an empty JSON as this function doesn’t need to receive any extra informa
 It will open a second tab called Execution results and, if the test runs flawlessly, you will see a Response with a HTTPStatusCode equals to 200.
 You will also see in this response an array of Items that corresponds to all items you have inside your DynamoDB table.
 
+
+  ![Lambda Image](Images/list_product_lambda8.png)
 Test ok!
 
 From this moment on, you have 5 working Lambda functions as follows:
