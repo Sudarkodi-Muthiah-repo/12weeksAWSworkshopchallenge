@@ -5,19 +5,11 @@ you’ll explore a real-world scenario as an experienced engineer hired to help 
 With all this information in mind, you’ve decided to rely on an AWS serverless architecture based on Amazon API Gateway, AWS Lambda and Amazon DynamoDB whereas the products catalog will reside on DynamoDB.
 ## Solution Architecture
 image
-
-### Base architecture
-** Create an Amazon DynamoDB table to use as your products catalog database
-** Start to code using AWS Lambda functions to handle your catalog data (CRUD)
-C Create a function that will be able to insert new products into the catalog
-R Create two functions, one that will get an item from the catalog and another one to get a list of products
-U Create a function that will be in charge of updating products
-D Create a function that will delete products from the catalog
-Create a new Amazon API Gateway and link it with your functions to expose your database to external applications.
-Authorization
-
-After having all methods tested and running, your next challenge is to protect them from public access so, you’ve decided to use AWS Lambda authorizers to validate tokens within requests.
-
-Create an AWS Lambda to work as your token authorizer
-Add this authorizer to your API’s methods
-Test everything!
+### Step 1 create a table in Amazon DynamoDB that will serve as your products catalog database
+At the top of the AWS Management Console, in the search bar, search for and choose DynamoDB. On the left navigation menu, choose Tables.
+* Choose Create table.
+* As your Table name, enter acme_products
+* As your Partition key, enter uuid and keep it as a String.
+* Leave Sort key field empty.
+* Choose  Customize settings
+* This will expand more configurations options.
