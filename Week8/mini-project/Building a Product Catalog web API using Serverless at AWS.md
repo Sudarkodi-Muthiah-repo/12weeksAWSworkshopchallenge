@@ -211,4 +211,48 @@ The data related to the uuid you passed was deleted from DynamoDB.
 
 ![Lambda Image](Images/delete_product_lambda8.png)
 
+## Step 2.5 LIST PRODUCTS LAMBDA FUNCTION CREATION
+* Back to your Lambda functions main screen.
+* Choose Create function .
+* Choose  Author from scratch .
+* Configure the following options from the Basic information section.
+* Function name: acme_list_products
+* Runtime: Python 3.9 
+* Architecture:  x86_64
+Permissions:
+* Expand  Change default execution role.
+* Execution role:  Use an existing role
+* Existing role: ACMEAPILambdaExecutionRole 
+* Choose Create function
+Image
+* Scroll down to the Code source section.
+* Copy and paste the code below, replacing the existing code in the lambda_function.py file.
+  ![acme_list_products.py](/Week8/Code/acme_list_products.py)
+* Choose the Deploy
+This function is going te be used to retrieve all visible products from our DynamoDB table. You can test it creating a test just like you did before. It is not necessary to send any payload as this function doesn’t need any extra information.
+* Choose Test
+The Configure test event dialog window opens.
+Configure the following options.
+* Test event action:  Create new event
+* Event name: ACMEListProductsTest
+* Event sharing settings:  Private
+* Template - optional: hello-world
+* Event JSON: Copy and paste the code below.
+```
+{}
+```
+It is an empty JSON as this function doesn’t need to receive any extra information.
 
+* Scroll down and choose Save to finish the test setup.
+* Choose Test   |  .
+It will open a second tab called Execution results and, if the test runs flawlessly, you will see a Response with a HTTPStatusCode equals to 200.
+You will also see in this response an array of Items that corresponds to all items you have inside your DynamoDB table.
+
+Test ok!
+From this moment on, you have 5 working Lambda functions as follows:
+acme_create_product
+acme_get_product
+acme_update_product
+acme_delete_product
+acme_list_products
+🎉Congratulations! You have successfully created the required Lambda functions.
