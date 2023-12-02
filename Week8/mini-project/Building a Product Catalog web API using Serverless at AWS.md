@@ -13,3 +13,19 @@ At the top of the AWS Management Console, in the search bar, search for and choo
 * Leave Sort key field empty.
 * Choose  Customize settings
 * This will expand more configurations options.
+Scroll down to Secondary indexes section and choose Create global index .
+From the New global secondary index window, configure the following options:
+* Partition key: visible
+* Data type: String 
+* Sort key: Leave blank
+* Index name: 
+* visible-index
+* Attribute projections:  All
+* Choose Create index.
+You are taken back to the Create table page. Leave all remaining options with their default values.
+Scroll down and choose Create table.
+
+Table Inage
+> Note: It takes a few seconds to provision the table. As soon as it finishes, the table is ready to be used.
+> You can select your acme_products table and browse through the navigation tabs to view available configuration options for the table.
+🎉Congratulations! You have successfully created a table in Amazon DynamoDB that will serve as your products catalog database.
