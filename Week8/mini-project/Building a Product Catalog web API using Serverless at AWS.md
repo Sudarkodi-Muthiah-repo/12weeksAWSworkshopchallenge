@@ -46,4 +46,35 @@ Permissions:
 * Execution role:  Use an existing role
 * Existing role: ACMEAPILambdaExecutionRole 
 > Note: This role grants this Lambda function and other permissions needed to interact with DynamoDB.
-* Choose Create function .
+* Choose Create function
+Image
+Scroll down to the Code source section. Copy and paste the code below, replacing the existing code in the lambda_function.py file.
+acme_create_product.py
+* Choose Deploy
+Test the function.
+* Choose Test
+The Configure test event dialog window opens.
+* Configure the following options.
+  + Event name: ACMECreateProductTest
+  + Event sharing settings:  Private
+  + Template - optional: hello-world
+  + Event JSON: Copy and paste the code below.
+  ```
+  {
+    "name": "Some Cool Product Name",
+    "visible": "1"
+  }
+  ```
+  * Choose Save to finish the test setup.
+    Image
+  * Choose Test
+  It will open a second tab named Execution results and, if the test runs without errors, you will see a Response with a statusCode equals to 200.
+Image
+
+Take advantage of the test feature and create more products. This will facilitate your tests in the future.
+
+* At the top of the DynamoDB Management Console, in the search bar, search for and choose DynamoDB.
+* Choose Tables from the menu on the left.
+* Choose the acme_products text link to open the table details.
+* Choose Explore table items .
+You see items there that were written by your function.
