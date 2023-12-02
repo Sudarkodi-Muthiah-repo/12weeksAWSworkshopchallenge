@@ -273,7 +273,8 @@ From this moment on, you have 5 working Lambda functions as follows:
 * API name: ACME Products API
 * Description: Products API that connects a web endpoint to several Lambda functions
 * Regional 
-* Choose Create API .
+* Choose Create API
+  ![](Images/apigw3.png)
 Your Amazon API Gateway is ready to be configured.
 ### Step 3.2: CREATE API GATEWAY RESOURCE
 In this task you will create the products resource for your API Gateway.
@@ -281,5 +282,6 @@ In this task you will create the products resource for your API Gateway.
 * Now in the Create Resource screen, enter the following values:
 * Resource Name: products
 * CORS (Cross Origin Resource Sharing): Leave checkbox de-selected.
-* Choose Create resource .
+* Choose Create resource
+![](Images/apigw5.png)
 Your next step is to create the methods and link them with your functions.
