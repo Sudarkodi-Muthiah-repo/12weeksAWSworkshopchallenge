@@ -4,7 +4,7 @@ you’ll explore a real-world scenario as an experienced engineer hired to help 
 
 With all this information in mind, you’ve decided to rely on an AWS serverless architecture based on Amazon API Gateway, AWS Lambda and Amazon DynamoDB whereas the products catalog will reside on DynamoDB.
 ## Solution Architecture
-image
+![](./Images/Architecture.png)
 ### Step 1 create a table in Amazon DynamoDB that will serve as your products catalog database
 At the top of the AWS Management Console, in the search bar, search for and choose DynamoDB. On the left navigation menu, choose Tables.
 * Choose Create table.
@@ -25,7 +25,7 @@ From the New global secondary index window, configure the following options:
 You are taken back to the Create table page. Leave all remaining options with their default values.
 Scroll down and choose Create table.
 
-Table Inage
+![](./Images/dynamodb_table6.png)
 
 > Note: It takes a few seconds to provision the table. As soon as it finishes, the table is ready to be used.
 > You can select your acme_products table and browse through the navigation tabs to view available configuration options for the table.
@@ -47,7 +47,7 @@ Permissions:
 * Existing role: ACMEAPILambdaExecutionRole 
 > Note: This role grants this Lambda function and other permissions needed to interact with DynamoDB.
 * Choose Create function
-Image
+![](./Images/create_product_lambda4.png)
 Scroll down to the Code source section. Copy and paste the code below, replacing the existing code in the lambda_function.py file.
 acme_create_product.py
 * Choose Deploy
@@ -69,12 +69,12 @@ The Configure test event dialog window opens.
     Image
   * Choose Test
   It will open a second tab named Execution results and, if the test runs without errors, you will see a Response with a statusCode equals to 200.
-Image
+![](./Images/create_product_lambda10.png)
 
 Take advantage of the test feature and create more products. This will facilitate your tests in the future.
 
 * At the top of the DynamoDB Management Console, in the search bar, search for and choose DynamoDB.
 * Choose Tables from the menu on the left.
 * Choose the acme_products text link to open the table details.
-* Choose Explore table items .
+* Choose Explore table items.
 You see items there that were written by your function.
