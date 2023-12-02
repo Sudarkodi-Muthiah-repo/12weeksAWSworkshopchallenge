@@ -69,7 +69,7 @@ The Configure test event dialog window opens.
     Image
   * Choose Test
   It will open a second tab named Execution results and, if the test runs without errors, you will see a Response with a statusCode equals to 200.
-![](Images/create_product_lambda10.png)
+![](Images/create_product_lambda9.png)
 
 Take advantage of the test feature and create more products. This will facilitate your tests in the future.
 
@@ -78,3 +78,4 @@ Take advantage of the test feature and create more products. This will facilitat
 * Choose the acme_products text link to open the table details.
 * Choose Explore table items.
 You see items there that were written by your function.
+![](Images/create_product_lambda10.png)
