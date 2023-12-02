@@ -121,3 +121,51 @@ It will open a second tab called Execution results and, if the test runs without
 
  ![](Images/get_product_lamda8.png)
 
+### Step 2.3 UPDATE PRODUCT LAMBDA FUNCTION CREATION
+* Return to your Lambda functions main screen.
+* Choose Create function 
+* Choose  Author from scratch .
+* Configure the following options from the Basic information section.
+* Function name: acme_update_product
+* Runtime: Python 3.9 
+* Archictecture:  x86_64
+Permissions:
+* Expand  Change default execution role.
+* Execution role:  Use an existing role
+* Existing role: ACMEAPILambdaExecutionRole 
+* Choose Create function
+
+[Lambda Image]
+* Scroll down to the Code source section.
+* Copy and paste the code below, replacing the existing code in the lambda_function.py file.
+  ![](/Code/acme_update_product.py)
+  
+* After pasting the code choose Deploy
+his function is going to be used to update one product by its uuid.
+* Choose Test
+The Configure test event dialog window opens.
+* Configure the following options.
+* Test event action:  Create new event
+* Event name: ACMEUpdateProductTest
+* Event sharing settings:  Private
+* Template - optional: hello-world
+* Event JSON: Copy and paste the code below.
+  ```
+  {
+    "uuid": "replace_with_a_valid_uuid",
+    "visible": "1",
+    "name": "Some UPDATED Product Name"
+  }
+  ```
+  > Caution: You have to get a valid uuid in your DynamoDB table items to test.
+  
+Scroll down and choose Save to finish the test setup.
+* Choose Test  
+It will open a second tab called Execution results and, if the test runs without errors, you will see a Response with an HTTPStatusCode equals to 200 and the Attributes key with the updated data related to the product uuid you passed.
+
+Image
+
+>  Note: If you want to double check the updated data, you can go back to DynamoDB and browse items there.
+
+
+
