@@ -79,3 +79,42 @@ Take advantage of the test feature and create more products. This will facilitat
 * Choose Explore table items.
 You see items there that were written by your function.
 ![](Images/create_product_lambda10.png)
+
+### Step 2.2 2.2: GET PRODUCT LAMBDA FUNCTION CREATION
+Return to your Lambda functions main screen.
+* Choose Create function .
+* Choose  Author from scratch .
+* Configure the following options from the Basic information section.
+* Function name: acme_get_product
+* Runtime: Python 3.9 
+* Archictecture:  x86_64
+Permissions:
+* Expand  Change default execution role.
+* Execution role:  Use an existing role
+* Existing role: ACMEAPILambdaExecutionRole 
+* Choose Create function
+  Iamge
+* Scroll down to the Code source section.
+* Copy and paste the code below, replacing the existing code in the lambda_function.py file.
+```
+Week8/Code/acme_get_product.py
+```
+* After pasting the code, choose Deploy
+* Choose Test 
+The Configure test event dialog window opens.
+Configure the following options.
+ + Test event action:  Create new event
+ + Event name: ACMEGetProductTest
+ + Event sharing settings:  Private
+ + Template - optional: hello-world
+ + Event JSON: Copy and paste the code below.
+```
+{
+    "uuid": "replace_with_a_valid_uuid"
+}
+```
+* Scroll down and choose Save to finish the test setup.
+  Image
+ * Choose Test
+It will open a second tab called Execution results and, if the test runs without errors, you will see a Response with an HTTPStatusCode equals to 200 and an Item key with the data related to the product uuid you passed.
+
