@@ -93,7 +93,7 @@ Permissions:
 * Execution role:  Use an existing role
 * Existing role: ACMEAPILambdaExecutionRole 
 * Choose Create function
-  Iamge
+  ![](Images/get_product_lambda3.png)
 * Scroll down to the Code source section.
 * Copy and paste the code below, replacing the existing code in the lambda_function.py file.
 ```
@@ -114,7 +114,10 @@ Configure the following options.
 }
 ```
 * Scroll down and choose Save to finish the test setup.
-  Image
+ ![](Images/get_product_lambda7.png)
+  
  * Choose Test
 It will open a second tab called Execution results and, if the test runs without errors, you will see a Response with an HTTPStatusCode equals to 200 and an Item key with the data related to the product uuid you passed.
+
+ ![](Images/get_product_lambda8.png)
 
