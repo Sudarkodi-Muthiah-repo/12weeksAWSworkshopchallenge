@@ -229,7 +229,7 @@ Image
 * Copy and paste the code below, replacing the existing code in the lambda_function.py file.
   ![acme_list_products.py](/Week8/Code/acme_list_products.py)
 * Choose the Deploy
-This function is going te be used to retrieve all visible products from our DynamoDB table. You can test it creating a test just like you did before. It is not necessary to send any payload as this function doesn’t need any extra information.
+This function is going to be used to retrieve all visible products from our DynamoDB table. You can test it creating a test just like you did before. It is not necessary to send any payload as this function doesn’t need any extra information.
 * Choose Test
 The Configure test event dialog window opens.
 Configure the following options.
@@ -244,15 +244,18 @@ Configure the following options.
 It is an empty JSON as this function doesn’t need to receive any extra information.
 
 * Scroll down and choose Save to finish the test setup.
-* Choose Test   |  .
+* Choose Test
+  
 It will open a second tab called Execution results and, if the test runs flawlessly, you will see a Response with a HTTPStatusCode equals to 200.
 You will also see in this response an array of Items that corresponds to all items you have inside your DynamoDB table.
 
 Test ok!
+
 From this moment on, you have 5 working Lambda functions as follows:
-acme_create_product
-acme_get_product
-acme_update_product
-acme_delete_product
-acme_list_products
++ acme_create_product
++ acme_get_product
++ acme_update_product
++ acme_delete_product
++ acme_list_products
+  
 🎉Congratulations! You have successfully created the required Lambda functions.
