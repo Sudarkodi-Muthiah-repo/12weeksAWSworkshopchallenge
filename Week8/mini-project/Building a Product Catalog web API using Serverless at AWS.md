@@ -24,7 +24,8 @@ From the New global secondary index window, configure the following options:
 * Attribute projections:  All
 * Choose Create index.
 You are taken back to the Create table page. Leave all remaining options with their default values.
-Scroll down and choose Create table.
+
+* Scroll down and choose Create table.
 
 ![dynamodb](Images/dynamdb_table6.png)
 
@@ -49,8 +50,8 @@ Permissions:
 > Note: This role grants this Lambda function and other permissions needed to interact with DynamoDB.
 * Choose Create function
 ![](Images/create_product_lambda4.png)
-Scroll down to the Code source section. Copy and paste the code below, replacing the existing code in the lambda_function.py file.
-acme_create_product.py
+* Scroll down to the Code source section.
+* Copy and paste the code ![acme_create_product.py](/Week8/Code/acme_create_product.py) replacing the existing code in the lambda_function.py file.
 * Choose Deploy
 Test the function.
 * Choose Test
@@ -67,7 +68,6 @@ The Configure test event dialog window opens.
   }
   ```
   * Choose Save to finish the test setup.
-    Image
   * Choose Test
   It will open a second tab named Execution results and, if the test runs without errors, you will see a Response with a statusCode equals to 200.
 ![](Images/create_product_lambda9.png)
@@ -83,8 +83,8 @@ You see items there that were written by your function.
 
 ### Step 2.2 GET PRODUCT LAMBDA FUNCTION CREATION
 Return to your Lambda functions main screen.
-* Choose Create function .
-* Choose  Author from scratch .
+* Choose Create function
+* Choose  Author from scratch
 * Configure the following options from the Basic information section.
 * Function name: acme_get_product
 * Runtime: Python 3.9 
@@ -96,12 +96,10 @@ Permissions:
 * Choose Create function
   ![](Images/get_product_lamda3.png)
 * Scroll down to the Code source section.
-* Copy and paste the code below, replacing the existing code in the lambda_function.py file.
-```
-Week8/Code/acme_get_product.py
-```
+* Copy and paste the code ![acme_get_product.py](Week8/Code/acme_get_product.py) replacing the existing code in the lambda_function.py file.
 * After pasting the code, choose Deploy
-* Choose Test 
+* Choose Test
+  
 The Configure test event dialog window opens.
 Configure the following options.
  + Test event action:  Create new event
@@ -138,11 +136,10 @@ Permissions:
 
 ![Lambda Image](Images/update_product_lambda3.png)
 * Scroll down to the Code source section.
-* Copy and paste the code below, replacing the existing code in the lambda_function.py file.
-  ![](Week8/Code/acme_update_product.py)
-  
-* After pasting the code choose Deploy
-his function is going to be used to update one product by its uuid.
+* Copy and paste the code ![acme_update_product.py](Week8/Code/acme_update_product.py), replacing the existing code in the lambda_function.py file.
+* After pasting the code, choose Deploy
+
+This function is going to be used to update one product by its uuid.
 * Choose Test
 The Configure test event dialog window opens.
 * Configure the following options.
@@ -263,7 +260,7 @@ From this moment on, you have 5 working Lambda functions as follows:
 + acme_delete_product
 + acme_list_products
   
-🎉Congratulations! You have successfully created the required Lambda functions.
+🎉**Congratulations! You have successfully created the required Lambda functions.**
 ## Step 3 API Gateway
 ### Step 3.1 CREATE API GATEWAY
 * At the top of the AWS Management Console, in the search bar, search for and choose API Gateway in a new browser tab.
@@ -289,7 +286,7 @@ Your next step is to create the methods and link them with your functions.
 ### Step 3.3 CREATE API GATEWAY GET METHOD
 * Keep your /products resource selected.
 * Click on Create method.
-* Select method type as GET  .
+* Select method type as GET
 Configure the method:
 * Integration type:  Lambda Function
 * Lambda proxy integration:  Note: Leave toggle button de-selected.
@@ -303,6 +300,7 @@ Before proceeding, you can test your method.
 * Go to Test tab and click on  Test at the bottom.
 If your test succeeded, you will see the response from the Lambda Function which includes a list of products from your catalog.
 Your expected Response Body output should look similar to the following:
+
 ![](Images/apigw10.png)
 ### Step 3.4 CREATE API GATEWAY POST METHOD
 * Keep your /products resource selected.
@@ -401,12 +399,12 @@ Where uuid will be the unique ID that will correspond to a specific product in y
 * CORS (Cross Origin Resource Sharing):  Note: Leave checkbox de-selected.
 * Choose Create resource
   ![](Images/apigw27.png)
-This will create a new resource that will allow you to make requests to ** /products/*. 
+This will create a new resource that will allow you to make requests to **/products/** 
 This is the way you create a resource that can have different values. Any value passed after /products/ will be mapped to uuid variable.
 With your new resource created, create the GET HTTP method and associate the Lambda function you created before.
 * Keep your /{uuid} resource selected.
 * Click on Create method.
-* Select method type as GET  .
+* Select method type as GET 
 Now you need to configure the GET method.
 * Integration type:  Lambda Function
 * Lambda proxy integration:  Note: Leave toggle button de-selected.
@@ -421,7 +419,7 @@ Now you need to guarantee the uuid sent within your path is also sent to your la
 * Choose the Integration Request tab.
 * Scroll down and expand Expand  Mapping Templates.
 * Click on Create template.
-* In the Content-Type text field that opened, enter ** application/json
+* In the Content-Type text field that opened, enter **application/json**
 * Scroll down a little bit. Leave the Generate template selector field empty and enter the following in the template area:
 ```
 {
@@ -462,7 +460,7 @@ Permissions:
 * Expand  Change default execution role.
 * Execution role:  Use an existing role
 * Existing role: ACMEAPILambdaExecutionRole 
-* Choose Create function .
+* Choose Create function 
 
 ![](Images/authorizer_lambda3.png)
 
@@ -478,6 +476,7 @@ As this function will return a policy that grants or denies access to your API G
 If you check the code above, it is very simple. It validates if an authorizationToken came in the event argument and if the value is equal to 123. Of course this is hard coded and the best way to implement it is having some extra validation like hitting a database to really check the token or to use JWT.
 Also pay attention to the policy being returned. It allows or denies invoking any method in your API Gateway.
 Now go back to your API Gateway to create an authorizer and attach it to the methods you want to protect.
+
 * At the top of the AWS Management Console, in the search bar, search for and choose API Gateway
 * Choose the ACME Products API to enter into the API setup.
 * In the left navigation menu, choose Authorizers.
@@ -526,8 +525,35 @@ Next you deploy the API.
 * For Stage name, type v1
 * Keep everything else empty and choose Deploy
 
+![](Images/deployAPI7.png)
+
 You will be redirected to **Stages** area. As you can see, it is possible to have different stages like development, production and everything else that makes sense to your organization.
+
 Now you also have the **Invoke URL** that will be used to reach your API. Copy it to your text editor as you are going to need in your final test.
 Now it is time to test everything together.
-🎉Congratulations! You have successfully deployed your API Gateway.
+
+🎉**Congratulations! You have successfully deployed your API Gateway.**
+## Step 6 Final Test
+As you really want to validate your API as if an external application is accessing it, you built a web application to be used to test you API. This web app will simulate external requests just like other third party tools like Postman, CURL, Insomnia, etc. In this task you will be testing the API Gateway endpoint.
+
+* Copy the URL of your application (APITesterTool) from the left navigation menu Lab Information and Resources section in the left side pane in the lab     
+  instruction page , just below AWS CONSOLE INFORMATION and paste it in a new web browser tab.
+As you can see, your web application is very straight forward.
+
+* Select GET method and, inside API Gateway endpoint, paste the Invoke URL.
+> **Caution: Don’t forget to add /products resource before pasting your API endpoint. You final endpoint will be like the example below.**
+
+![URL](https://[YOUR-API-ID].execute-api.us-west-2.amazonaws.com/v1/products)
+
+* Enter 123 in the Authorization token field.
+* Now you can choose **Submit** and check the results in the right side.
+
+The GET method is working.
+
+* Now just change to POST method in the web application. It will open a JSON/Payload area pre-filled. You can change the product name and start using the tool to create products.
+  
+Use this tool to handle requests to your API. Get uuid in the return of GET method and use it to test PUT and DELETE methods. If you want to GET just one product by its uuid, remember to add it in the URL/endpoint.
+
+🎉**Congratulations! You just finished creating an entire RESTful API using serverless services.**
+
 
