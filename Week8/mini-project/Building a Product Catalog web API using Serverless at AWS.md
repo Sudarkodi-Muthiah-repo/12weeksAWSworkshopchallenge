@@ -295,14 +295,14 @@ Configure the method:
 * Lambda Function: acme_list_products (as soon as you type, it will open a selector dialog for you to select the function that already exists)
 * Default Timeout: Leave toggle button selected.
 * Choose Create method
-  Image
+![](Images/apigw8.png)
 
 You just created your first method. You are going to repeat this for other verbs like POST, PUT and DELETE as well.
 Before proceeding, you can test your method.
 * Go to Test tab and click on  Test at the bottom.
 If your test succeeded, you will see the response from the Lambda Function which includes a list of products from your catalog.
 Your expected Response Body output should look similar to the following:
-Image
+![](Images/apigw10.png)
 ### Step 3.3 CREATE API GATEWAY POST METHOD
 * Keep your /products resource selected.
 * Click on Create method.
