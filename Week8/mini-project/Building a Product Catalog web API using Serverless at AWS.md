@@ -446,6 +446,32 @@ Your expected Response Body output should look similar to the following:
 Now you have a functional API Gateway. There is a problem though. In this setup, the API is open to the world. This means anyone can use it as soon as you deploy.
 In your next task, you are going to add a protection layer to your API.
 ## Step 4 AWS Lambda authorizer
+In this task you create the Lambda function that will be in charge of the authorization validation.
+* At the top of the AWS Management Console, in the search bar, search for and choose Lambda in a new tab.
+* In the left menu, choose Functions.
+* Choose Create function .
+* Choose  Author from scratch .
+Configure the following options from the Basic information section.
+* Function name: acme_api_authorizer
+* Runtime: Python 3.9 
+* Architecture:  x86_64
+Permissions:
+* Expand  Change default execution role.
+* Execution role:  Use an existing role
+* Existing role: ACMEAPILambdaExecutionRole 
+* Choose Create function .
+
+Expected output:
+Image
+
+As this function will return a policy that grants or denies access to your API Gateway, before proceeding, you need to get some extra information.
+* Switch to the API Gateway browser tab.
+* Return to the API Gateway service in the console and select APIs in the left navigation area. You new API will be shown, copy the API ID. It will be a hash with random chars that will look like with 
+  oflu3t8kp8, copy this ID to a local notepad.
+* Now get the ID of your AWS account, you can get it by expanding the top navigation menu where there is your user information, just besides the region selector.
+* Once you have both pieces of information, navigate back to your acme_api_authorizer function.
+* Scroll down to the Code source section.
+* Copy and paste the code ![acme_api_authorizer.py](/Week8/Code/acme_api_authorizer.py), replacing the ACCOUNTD and APIID in the lambda_function.py file.
 
 
 
