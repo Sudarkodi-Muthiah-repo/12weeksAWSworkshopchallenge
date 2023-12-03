@@ -443,8 +443,10 @@ Your expected Response Body output should look similar to the following:
 ```
 {"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": "{\"Item\": {\"uuid\": \"f4ce4eb9ba6445078c0cd03bdc3feb64\", \"visible\": \"1\", \"name\": \"Some Product Name\", \"creation_date\": \"2022-10-24 17:28:56\", \"updated_date\": \"2022-10-24 17:28:56\"}, \"ResponseMetadata\": {\"RequestId\": \"IGUUUPBB1HNPFFC76IM7S419FVVV4KQNSO5AEMVJF66Q9ASUAAJG\", \"HTTPStatusCode\": 200, \"HTTPHeaders\": {\"server\": \"Server\", \"date\": \"Mon, 24 Oct 2022 18:18:47 GMT\", \"content-type\": \"application/x-amz-json-1.0\", \"content-length\": \"198\", \"connection\": \"keep-alive\", \"x-amzn-requestid\": \"IGUUUPBB1HNPFFC76IM7S419FVVV4KQNSO5AEMVJF66Q9ASUAAJG\", \"x-amz-crc32\": \"3508550731\"}, \"RetryAttempts\": 0}}"}
 ```
+
 Now you have a functional API Gateway. There is a problem though. In this setup, the API is open to the world. This means anyone can use it as soon as you deploy.
 In your next task, you are going to add a protection layer to your API.
+
 ## Step 4 AWS Lambda authorizer
 In this task you create the Lambda function that will be in charge of the authorization validation.
 * At the top of the AWS Management Console, in the search bar, search for and choose Lambda in a new tab.
@@ -461,7 +463,6 @@ Permissions:
 * Existing role: ACMEAPILambdaExecutionRole 
 * Choose Create function .
 
-Expected output:
 Image
 
 As this function will return a policy that grants or denies access to your API Gateway, before proceeding, you need to get some extra information.
@@ -487,16 +488,22 @@ Now go back to your API Gateway to create an authorizer and attach it to the met
 * In Lambda Event Payload area, inside Token Source field, write Authorization
 * Authorization Caching:
 * Choose Create authorizer
+  
   Image
+  
 Now you have the authorizer. Of course your business requirements will tell you what you have to protect or not. For now, protect just one of the methods.
+
 **Protect GET method**
+
 * Choose Resources in the left navigation menu.
 * Select GET method related to /products resource. If you remember, this is the one who returns the list of products from your catalog.
 * Inside /products - GET - Method Execution area, choose Method Request.
 * In the Settings section, click on Edit.
-* A selector should open and you should be able to select ACMEAPIAuthorizer . If the authorizer is not in the list, refresh the entire window and try again.
+* A selector should open and you should be able to select ACMEAPIAuthorizer.If the authorizer is not in the list, refresh the entire window and try again.
 * Click Save.
+
 Now you have one method protected by the Lambda Authorizer. Just requests that send an Authorization with 123 as a value will be forwarded to the Lambda.
+
 🎉Congratulations! You have successfully created the Lambda authorizers as well as the methods and resources for your API Gateway.
 
 
