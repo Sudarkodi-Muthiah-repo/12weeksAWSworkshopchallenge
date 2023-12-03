@@ -506,5 +506,28 @@ Now you have the authorizer. Of course your business requirements will tell you 
 Now you have one method protected by the Lambda Authorizer. Just requests that send an Authorization with 123 as a value will be forwarded to the Lambda.
 
 🎉Congratulations! You have successfully created the Lambda authorizers as well as the methods and resources for your API Gateway.
+## Step 5 Deploy
+Before testing everything using a tool that simulates real life, you need to deploy your API. As your API will be also reached by web applications running in web browsers, you need to enable CORS before deploying. In this task, you will deploy your API.
+* In your API Resources area, select /products resource.
+* Click on Enable CORS.
+* Choose default 4XX and 5XX.
+* Select Access-Control-Allow-Methods : GET.
+* Click on Save .
+Now repeat the same for your /{uuid} resource:
+* In your API Resources area, select /{uuid} resource.
+* Click on Enable CORS.
+* Choose default 4XX and 5XX.
+* Select Access-Control-Allow-Methods : GET.
+* Click on Save .
+Next you deploy the API.
+* Select in the Resources area the top / in your API tree.
+* Choose Deploy API.
+* A Deploy API dialog window will popup. Open the first selector called Deployment stage and select New Stage.
+* For Stage name, type v1
+* Keep everything else empty and choose Deploy
 
+You will be redirected to **Stages** area. As you can see, it is possible to have different stages like development, production and everything else that makes sense to your organization.
+Now you also have the **Invoke URL** that will be used to reach your API. Copy it to your text editor as you are going to need in your final test.
+Now it is time to test everything together.
+🎉Congratulations! You have successfully deployed your API Gateway.
 
