@@ -5,7 +5,8 @@ you’ll explore a real-world scenario as an experienced engineer hired to help 
 With all this information in mind, you’ve decided to rely on an AWS serverless architecture based on Amazon API Gateway, AWS Lambda and Amazon DynamoDB whereas the products catalog will reside on DynamoDB.
 ## Solution Architecture
 ![Architecture](Images/Architecture.png)
-### Step 1 create a table in Amazon DynamoDB that will serve as your products catalog database
+## Step 1 DynamoDB
+### Step 1.1 create a table in Amazon DynamoDB that will serve as your products catalog database
 At the top of the AWS Management Console, in the search bar, search for and choose DynamoDB. On the left navigation menu, choose Tables.
 * Choose Create table.
 * As your Table name, enter acme_products
@@ -31,8 +32,8 @@ Scroll down and choose Create table.
 > You can select your acme_products table and browse through the navigation tabs to view available configuration options for the table.
 
 🎉Congratulations! You have successfully created a table in Amazon DynamoDB that will serve as your products catalog database.
-## AWS Lambda
-### CREATE PRODUCT LAMBDA FUNCTION CREATION
+## Step 2 AWS Lambda
+### Step 2.1 CREATE PRODUCT LAMBDA FUNCTION CREATION
 * At the top of the DynamoDB Management Console, in the search bar, search for and choose Lambda
 * In the left menu, choose Functions.
 * Choose Create function .
@@ -80,7 +81,7 @@ Take advantage of the test feature and create more products. This will facilitat
 You see items there that were written by your function.
 ![](Images/create_product_lambda10.png)
 
-### Step 2.2 2.2: GET PRODUCT LAMBDA FUNCTION CREATION
+### Step 2.2 GET PRODUCT LAMBDA FUNCTION CREATION
 Return to your Lambda functions main screen.
 * Choose Create function .
 * Choose  Author from scratch .
@@ -166,9 +167,9 @@ It will open a second tab called Execution results and, if the test runs without
 
 ![Lambda Image](Images/update_product_lambda8.png)
 
->  Note: If you want to double check the updated data, you can go back to DynamoDB and browse items there.
+>  Note: If you want to double-check the updated data, you can go back to DynamoDB and browse items there.
 
-## Step 2.4 DELETE PRODUCT LAMBDA FUNCTION CREATION
+### Step 2.4 DELETE PRODUCT LAMBDA FUNCTION CREATION
 * Back to your Lambda functions main screen.
 * Choose Create function .
 * Choose  Author from scratch .
@@ -211,7 +212,7 @@ The data related to the uuid you passed was deleted from DynamoDB.
 
 ![Lambda Image](Images/delete_product_lambda8.png)
 
-## Step 2.5 LIST PRODUCTS LAMBDA FUNCTION CREATION
+### Step 2.5 LIST PRODUCTS LAMBDA FUNCTION CREATION
 * Back to your Lambda functions main screen.
 * Choose Create function .
 * Choose  Author from scratch .
@@ -276,7 +277,7 @@ From this moment on, you have 5 working Lambda functions as follows:
 * Choose Create API
   ![](Images/apigw3.png)
 Your Amazon API Gateway is ready to be configured.
-### Step 3.2: CREATE API GATEWAY RESOURCE
+### Step 3.2 CREATE API GATEWAY RESOURCE
 In this task you will create the products resource for your API Gateway.
 * Click Create Resource option.
 * Now in the Create Resource screen, enter the following values:
@@ -303,7 +304,7 @@ Before proceeding, you can test your method.
 If your test succeeded, you will see the response from the Lambda Function which includes a list of products from your catalog.
 Your expected Response Body output should look similar to the following:
 ![](Images/apigw10.png)
-### Step 3.3 CREATE API GATEWAY POST METHOD
+### Step 3.4 CREATE API GATEWAY POST METHOD
 * Keep your /products resource selected.
 * Click on Create method.
 * Select method type as POST  .
@@ -313,7 +314,9 @@ Now you need to configure the method.
 * Lambda Function: acme_create_product (as soon as you type, it will open a selector dialog for you to select the function that already exists)
 * Default Timeout: Leave toggle button selected.
 * Choose Create method
-  Image
+
+  ![](Images/apigw12.png)
+  
 Before proceeding, test your method.
 * Go to Test tab and click on  Test at the bottom.
 Scroll down to Request Body field and enter the following payload.
@@ -330,7 +333,7 @@ Your expected Response Body output should look similar to the following:
 ```
 {"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": {"ResponseMetadata": {"RequestId": "DTCSO906O5GNKFSCHPUFED2LTRVV4KQNSO5AEMVJF66Q9ASUAAJG", "HTTPStatusCode": 200, "HTTPHeaders": {"server": "Server", "date": "Mon, 24 Oct 2022 17:28:57 GMT", "content-type": "application/x-amz-json-1.0", "content-length": "2", "connection": "keep-alive", "x-amzn-requestid": "DTCSO906O5GNKFSCHPUFED2LTRVV4KQNSO5AEMVJF66Q9ASUAAJG", "x-amz-crc32": "2745614147"}, "RetryAttempts": 0}}}
 ```
-### Step 3.4 CREATE API GATEWAY PUT METHOD
+### Step 3.5 CREATE API GATEWAY PUT METHOD
 * Keep your /products resource selected.
 * Click on Create method.
 * Select method type as PUT  .
@@ -340,6 +343,7 @@ Now you need to configure the method.
 * Lambda Function: acme_update_product (as soon as you type, it will open a selector dialog for you to select the function that already exists)
 * Default Timeout: Leave toggle button selected.
 * Choose Create method
+  ![](Images/apigw16.png)
 Test your PUT method.
 * Go to Test tab and click on  Test at the bottom.
 Scroll down to Request Body field and enter the following payload.
@@ -358,7 +362,7 @@ Your expected Response Body output should look similar to the following:
 ```
 {"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": {"Attributes": {"visible": "1", "name": "Some UPDATED Product Name", "updated_date": "2022-10-24 17:49:52"}, "ResponseMetadata": {"RequestId": "1KUDMV5RE9M7467O509PF1HIKRVV4KQNSO5AEMVJF66Q9ASUAAJG", "HTTPStatusCode": 200, "HTTPHeaders": {"server": "Server", "date": "Mon, 24 Oct 2022 17:49:52 GMT", "content-type": "application/x-amz-json-1.0", "content-length": "120", "connection": "keep-alive", "x-amzn-requestid": "1KUDMV5RE9M7467O509PF1HIKRVV4KQNSO5AEMVJF66Q9ASUAAJG", "x-amz-crc32": "2058753312"}, "RetryAttempts": 0}}}
 ```
-### Step 3.5 CREATE API GATEWAY DELETE METHOD
+### Step 3.6 CREATE API GATEWAY DELETE METHOD
 * Keep your /products resource selected.
 * Click on Create method.
 * Select method type as DELETE 
@@ -368,7 +372,7 @@ Now you need to configure the method.
 * Lambda Function: acme_delete_product (as soon as you type, it will open a selector dialog for you to select the function that already exists)
 * Default Timeout: Leave toggle button selected.
 * Choose Create method
-  Image
+  ![](Images/apigw21.png)
 * Go to Test tab and click on  Test at the bottom.
 * Scroll down to Request Body field and enter the following payload.
 > Note: Make sure to replace uuid with the one you copied from Dynamodb.
@@ -384,7 +388,7 @@ Your expected Response Body output should look similar to the following:
 ```
 {"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": {"ResponseMetadata": {"RequestId": "NGJ9VAMKPNRFKI461KEOMVQ87VVV4KQNSO5AEMVJF66Q9ASUAAJG", "HTTPStatusCode": 200, "HTTPHeaders": {"server": "Server", "date": "Mon, 24 Oct 2022 17:56:13 GMT", "content-type": "application/x-amz-json-1.0", "content-length": "2", "connection": "keep-alive", "x-amzn-requestid": "NGJ9VAMKPNRFKI461KEOMVQ87VVV4KQNSO5AEMVJF66Q9ASUAAJG", "x-amz-crc32": "2745614147"}, "RetryAttempts": 0}}}
 ```
-### Step 3.6  AMAZON API GATEWAY GET METHOD, PRODUCT RETRIEVAL
+### Step 3.7 AMAZON API GATEWAY GET METHOD, PRODUCT RETRIEVAL
 ```
 /products/<uuid>
 ```
@@ -410,7 +414,8 @@ Now you need to configure the GET method.
 > Note: De-select this button from its default selected state. When de-selected a new entry box titled Custom Timeout will appear, give it as
 > 50
 * Choose Create method
-  Image
+![](Images/apigw27.png)
+
 Now you need to guarantee the uuid sent within your path is also sent to your lambda. In order to accomplish this, you have to change your Integration Request.
 * Choose the Integration Request tab.
 * Scroll down and expand Expand  Mapping Templates.
