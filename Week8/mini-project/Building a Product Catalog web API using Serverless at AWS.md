@@ -542,8 +542,9 @@ As you can see, your web application is very straight forward.
 
 * Select GET method and, inside API Gateway endpoint, paste the Invoke URL.
 > **Caution: Don’t forget to add /products resource before pasting your API endpoint. You final endpoint will be like the example below.**
-
-![URL](https://[YOUR-API-ID].execute-api.us-west-2.amazonaws.com/v1/products)
+```
+https://[YOUR-API-ID].execute-api.us-west-2.amazonaws.com/v1/products)
+```
 
 * Enter 123 in the Authorization token field.
 * Now you can choose **Submit** and check the results in the right side.
