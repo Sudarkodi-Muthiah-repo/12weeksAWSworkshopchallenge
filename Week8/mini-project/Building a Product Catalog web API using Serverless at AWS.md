@@ -285,3 +285,162 @@ In this task you will create the products resource for your API Gateway.
 * Choose Create resource
 ![](Images/apigw5.png)
 Your next step is to create the methods and link them with your functions.
+### Step 3.3 CREATE API GATEWAY GET METHOD
+* Keep your /products resource selected.
+* Click on Create method.
+* Select method type as GET  .
+Configure the method:
+* Integration type:  Lambda Function
+* Lambda proxy integration:  Note: Leave toggle button de-selected.
+* Lambda Function: acme_list_products (as soon as you type, it will open a selector dialog for you to select the function that already exists)
+* Default Timeout: Leave toggle button selected.
+* Choose Create method
+  Image
+
+You just created your first method. You are going to repeat this for other verbs like POST, PUT and DELETE as well.
+Before proceeding, you can test your method.
+* Go to Test tab and click on  Test at the bottom.
+If your test succeeded, you will see the response from the Lambda Function which includes a list of products from your catalog.
+Your expected Response Body output should look similar to the following:
+Image
+### Step 3.3 CREATE API GATEWAY POST METHOD
+* Keep your /products resource selected.
+* Click on Create method.
+* Select method type as POST  .
+Now you need to configure the method.
+* Integration type:  Lambda Function
+* Lambda proxy integration:  Note: Leave toggle button de-selected.
+* Lambda Function: acme_create_product (as soon as you type, it will open a selector dialog for you to select the function that already exists)
+* Default Timeout: Leave toggle button selected.
+* Choose Create method
+  Image
+Before proceeding, test your method.
+* Go to Test tab and click on  Test at the bottom.
+Scroll down to Request Body field and enter the following payload.
+```
+{
+    "visible": "1",
+    "name": "Some Product Name"
+}
+```
+* Choose Test at the bottom.
+If your test succeeds, you will see the response from the Lambda Function which includes a statusCode 200.
+The API Gateway passed the Request Body to your Lambda Function which got the payload and wrote to the DynamoDB table. You can go back to your table and check the new item there!
+Your expected Response Body output should look similar to the following:
+```
+{"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": {"ResponseMetadata": {"RequestId": "DTCSO906O5GNKFSCHPUFED2LTRVV4KQNSO5AEMVJF66Q9ASUAAJG", "HTTPStatusCode": 200, "HTTPHeaders": {"server": "Server", "date": "Mon, 24 Oct 2022 17:28:57 GMT", "content-type": "application/x-amz-json-1.0", "content-length": "2", "connection": "keep-alive", "x-amzn-requestid": "DTCSO906O5GNKFSCHPUFED2LTRVV4KQNSO5AEMVJF66Q9ASUAAJG", "x-amz-crc32": "2745614147"}, "RetryAttempts": 0}}}
+```
+### Step 3.4 CREATE API GATEWAY PUT METHOD
+* Keep your /products resource selected.
+* Click on Create method.
+* Select method type as PUT  .
+Now you need to configure the method.
+* Integration type:  Lambda Function
+* Lambda proxy integration:  Note: Leave toggle button de-selected.
+* Lambda Function: acme_update_product (as soon as you type, it will open a selector dialog for you to select the function that already exists)
+* Default Timeout: Leave toggle button selected.
+* Choose Create method
+Test your PUT method.
+* Go to Test tab and click on  Test at the bottom.
+Scroll down to Request Body field and enter the following payload.
+> Note: Make sure to replace uuid with the one you copied from Dynamodb.
+```
+{
+    "uuid": "replace_with_a_valid_uuid",
+    "visible": "1",
+    "name": "Some UPDATED Product Name"
+}
+```
+* Choose  Test at the bottom.
+If your test succeeded, you will see the response from the Lambda Function which includes a statusCode 200 and the Attributes updated. Check that inside your Lambda has a logic to keep dates updated as well.
+The API Gateway passed the Request Body to your Lambda Function which got the payload and updated the DynamoDB table item related to the uuid you passed. You can go back to your table and check the updated item.
+Your expected Response Body output should look similar to the following:
+```
+{"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": {"Attributes": {"visible": "1", "name": "Some UPDATED Product Name", "updated_date": "2022-10-24 17:49:52"}, "ResponseMetadata": {"RequestId": "1KUDMV5RE9M7467O509PF1HIKRVV4KQNSO5AEMVJF66Q9ASUAAJG", "HTTPStatusCode": 200, "HTTPHeaders": {"server": "Server", "date": "Mon, 24 Oct 2022 17:49:52 GMT", "content-type": "application/x-amz-json-1.0", "content-length": "120", "connection": "keep-alive", "x-amzn-requestid": "1KUDMV5RE9M7467O509PF1HIKRVV4KQNSO5AEMVJF66Q9ASUAAJG", "x-amz-crc32": "2058753312"}, "RetryAttempts": 0}}}
+```
+### Step 3.5 CREATE API GATEWAY DELETE METHOD
+* Keep your /products resource selected.
+* Click on Create method.
+* Select method type as DELETE 
+Now you need to configure the method.
+* Integration type:  Lambda Function
+* Lambda proxy integration:  Note: Leave toggle button de-selected.
+* Lambda Function: acme_delete_product (as soon as you type, it will open a selector dialog for you to select the function that already exists)
+* Default Timeout: Leave toggle button selected.
+* Choose Create method
+  Image
+* Go to Test tab and click on  Test at the bottom.
+* Scroll down to Request Body field and enter the following payload.
+> Note: Make sure to replace uuid with the one you copied from Dynamodb.
+```
+{
+    "uuid": "replace_with_a_valid_uuid"
+}
+```
+* Choose  Test at the bottom.
+If your test succeeded, you will see the response from the Lambda Function which includes a statusCode 200.
+You can go back to your DynamoDB table to check if the product was deleted indeed.
+Your expected Response Body output should look similar to the following:
+```
+{"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": {"ResponseMetadata": {"RequestId": "NGJ9VAMKPNRFKI461KEOMVQ87VVV4KQNSO5AEMVJF66Q9ASUAAJG", "HTTPStatusCode": 200, "HTTPHeaders": {"server": "Server", "date": "Mon, 24 Oct 2022 17:56:13 GMT", "content-type": "application/x-amz-json-1.0", "content-length": "2", "connection": "keep-alive", "x-amzn-requestid": "NGJ9VAMKPNRFKI461KEOMVQ87VVV4KQNSO5AEMVJF66Q9ASUAAJG", "x-amz-crc32": "2745614147"}, "RetryAttempts": 0}}}
+```
+### Step 3.6  AMAZON API GATEWAY GET METHOD, PRODUCT RETRIEVAL
+```
+/products/<uuid>
+```
+Where uuid will be the unique ID that will correspond to a specific product in your database. In this task you will create the /products resource.
+
+* Keep your /products resource selected.
+* Click on Create resource.
+* Proxy resource: Note: Leave button de-selected.
+* Resource Name: {uuid}
+* CORS (Cross Origin Resource Sharing):  Note: Leave checkbox de-selected.
+* Choose Create resource
+This will create a new resource that will allow you to make requests to ** /products/*. 
+This is the way you create a resource that can have different values. Any value passed after /products/ will be mapped to uuid variable.
+With your new resource created, create the GET HTTP method and associate the Lambda function you created before.
+* Keep your /{uuid} resource selected.
+* Click on Create method.
+* Select method type as GET  .
+Now you need to configure the GET method.
+* Integration type:  Lambda Function
+* Lambda proxy integration:  Note: Leave toggle button de-selected.
+* Lambda Function: acme_get_product (as soon as you type, it will open a selector dialog for you to select the function that already exists)
+* Default Timeout: 
+> Note: De-select this button from its default selected state. When de-selected a new entry box titled Custom Timeout will appear, give it as
+> 50
+* Choose Create method
+  Image
+Now you need to guarantee the uuid sent within your path is also sent to your lambda. In order to accomplish this, you have to change your Integration Request.
+* Choose the Integration Request tab.
+* Scroll down and expand Expand  Mapping Templates.
+* Click on Create template.
+* In the Content-Type text field that opened, enter ** application/json
+* Scroll down a little bit. Leave the Generate template selector field empty and enter the following in the template area:
+```
+{
+    "uuid": "$input.params('uuid')"
+}
+```
+* Choose Create template
+* Scroll up and choose the Method Execution link to go back to the main screen.
+* Click on Test tab.
+* At the top of the AWS Management Console, in the search bar, search for and choose DynamoDB
+* In the navigation pane choose Tables, select the acme_products table. Choose Explore table items .
+* Under the uuid column copy any of the existing values to be used in the next step.
+* Switch back to the API Gateway console tab.
+* Fill the field {uuid} just under Path with a valid uuid you just copied.
+* Choose  Test.
+> Note: If you have no items in the table due to testing the API requests then open the acme_create_product lambda function and click the test button to generate a new item in the table. You can then test this API request with the UUID of the new item in the table.
+
+If your test succeeded, you will see the response from the Lambda Function which shows the information related to the product.
+Your expected Response Body output should look similar to the following:
+```
+{"statusCode": 200, "headers": {"Content-Type": "application/json"}, "body": "{\"Item\": {\"uuid\": \"f4ce4eb9ba6445078c0cd03bdc3feb64\", \"visible\": \"1\", \"name\": \"Some Product Name\", \"creation_date\": \"2022-10-24 17:28:56\", \"updated_date\": \"2022-10-24 17:28:56\"}, \"ResponseMetadata\": {\"RequestId\": \"IGUUUPBB1HNPFFC76IM7S419FVVV4KQNSO5AEMVJF66Q9ASUAAJG\", \"HTTPStatusCode\": 200, \"HTTPHeaders\": {\"server\": \"Server\", \"date\": \"Mon, 24 Oct 2022 18:18:47 GMT\", \"content-type\": \"application/x-amz-json-1.0\", \"content-length\": \"198\", \"connection\": \"keep-alive\", \"x-amzn-requestid\": \"IGUUUPBB1HNPFFC76IM7S419FVVV4KQNSO5AEMVJF66Q9ASUAAJG\", \"x-amz-crc32\": \"3508550731\"}, \"RetryAttempts\": 0}}"}
+```
+Now you have a functional API Gateway. There is a problem though. In this setup, the API is open to the world. This means anyone can use it as soon as you deploy.
+In your next task, you are going to add a protection layer to your API.
+## Step 4 AWS Lambda authorizer
+
+
+
