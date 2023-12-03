@@ -400,6 +400,7 @@ Where uuid will be the unique ID that will correspond to a specific product in y
 * Resource Name: {uuid}
 * CORS (Cross Origin Resource Sharing):  Note: Leave checkbox de-selected.
 * Choose Create resource
+  ![](Images/apigw27.png)
 This will create a new resource that will allow you to make requests to ** /products/*. 
 This is the way you create a resource that can have different values. Any value passed after /products/ will be mapped to uuid variable.
 With your new resource created, create the GET HTTP method and associate the Lambda function you created before.
@@ -414,7 +415,7 @@ Now you need to configure the GET method.
 > Note: De-select this button from its default selected state. When de-selected a new entry box titled Custom Timeout will appear, give it as
 > 50
 * Choose Create method
-![](Images/apigw27.png)
+![](Images/apigw30.png)
 
 Now you need to guarantee the uuid sent within your path is also sent to your lambda. In order to accomplish this, you have to change your Integration Request.
 * Choose the Integration Request tab.
@@ -463,7 +464,7 @@ Permissions:
 * Existing role: ACMEAPILambdaExecutionRole 
 * Choose Create function .
 
-Image
+![](Images/authorizer_lambda3.png)
 
 As this function will return a policy that grants or denies access to your API Gateway, before proceeding, you need to get some extra information.
 * Switch to the API Gateway browser tab.
@@ -489,7 +490,7 @@ Now go back to your API Gateway to create an authorizer and attach it to the met
 * Authorization Caching:
 * Choose Create authorizer
   
-  Image
+![](Images/authorizer_lambda10.png)
   
 Now you have the authorizer. Of course your business requirements will tell you what you have to protect or not. For now, protect just one of the methods.
 
