@@ -17,12 +17,16 @@ In this task, you open the DynamoDB console and review that the LanguagesTable e
 * From the navigation pane to the left, choose Tables.
 * In the list of tables, choose the LanguagesTable link.
 * To review the contents of the table, choose Explore table items.
-image
+
+![](images/Dynamo_db_table_item2.png)
+
 One quick method to verify that the table exists and is populated is to run an AWS CLI command and return the results after they are formatted by using the Linux tool, awk.
 ```
 echo -e "Language\tCode" && echo -e "--------\t----" && aws dynamodb scan --table-name LanguagesTable --query "Items[*].[Language.S, Code.S]" --output text | awk '{printf "%-15s %-5s\n", $1, $2}'
 ```
-image
+
+![](images/Cloud9_IDE_dynamodb_table_contents.png)
+
 ## REVIEW THE PYTHON SCRIPT
 In this task, you review the Python script, and learn about the main sections and what they are intended to do. You also identify the sections you are challenged to update.
 
@@ -57,5 +61,47 @@ The first part of the code (Challenge 1) puts an item into a DynamoDB table. The
 The second part of the code (Challenge 2), retrieves the item that represents the Danish language from the DynamoDB table. Again, the table name and the key details are left as question marks (???), and you are challenged with filling in those missing details.
 
 Finally, the code prints the retrieved item. The response from the get_item operation is a dictionary, and Item is the key in this dictionary that contains the retrieved item.
+## Solution
+
+```python
+import boto3
+dynamo = boto3.client('dynamodb')
 
 
+#####
+# Challenge 1: Put the entry for Danish into the Languages
+#   "Code": "da"
+#   "Language": "Danish"
+#####
+dynamo.put_item(
+    TableName="LanguagesTable",
+    Item={
+        "Language": {"S": "Danish"},
+        "Code": {"S": "da"}
+    })
+
+
+#####
+# Challenge 2: Retrieve the entry for Danish
+#####
+response = dynamo.get_item(
+    TableName="LanguagesTable",
+    Key={"Code": {"S": "da"}})
+
+print("")  # adds a blank line to format output
+print(response['Item'])
+print("")  # adds a blank line to format output
+```
+
+## Test the Python script
+In this task, you test the script to verify that it adds a new entry into the LanguagesTable for Danish as the Language, and da as the Code. The script should then be able to return the value for the Code that’s associated with the Danish language.
+
+Run the Python script to update the LanguagesTable with the details for Danish and return the code value for the Danish language.
+
+ Command: With the Python script updated and ready to test, make sure that your terminal is in the ~/environment directory. Run the script with the following grouped commands:
+```
+cd ~/environment; python dynamodb.py
+```
+![](images/Cloud9_IDE_dynamodb_table_contents_solution.png)
+
+🎉**Task complete:** You have successfully tested your updates to the dynamodb.py Python script and verified that it adds Danish as a new language and da as the language code in the LanguagesTable. You also tested the script’s ability to query data from the LanguagesTable.
