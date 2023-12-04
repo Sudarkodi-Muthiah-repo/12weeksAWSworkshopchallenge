@@ -1,0 +1,24 @@
+Description: Dynamo lab
+
+Resources:
+
+  LanguagesTabX:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      TableName: "LanguagesTable"
+      ImportSourceSpecification:
+        InputFormat: CSV
+        S3BucketSource: 
+          S3Bucket: rrs-sydney
+          S3KeyPrefix: languages.csv
+
+      AttributeDefinitions:
+        - AttributeName: Code
+          AttributeType: S
+      KeySchema:
+        - AttributeName: Code
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
