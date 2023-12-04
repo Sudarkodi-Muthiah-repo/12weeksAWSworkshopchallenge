@@ -157,7 +157,8 @@ cd ~/environment/api-backend-manual/source
 curl -X POST --data-binary @image01.jpg "${baseUrl}/add_image?uniqueGridId=${uniqueGridId}"
 ```
 * Repeat this step three more times for images named image02.jpg, image03.jpg, and image04.jpg.
-Image
+
+![](images/invoke_APIGw22.png)
 * View the entries that were created in DynamoDB by using the 
 
 aws dynamodb scan --table-name GridBuildercommand below:
@@ -168,12 +169,13 @@ aws dynamodb scan --table-name GridBuilder
 ```
 curl -s -X POST "${baseUrl}/generate_grid?uniqueGridId=${uniqueGridId}" | jq -r '"\nMessage: " + .message, "\nPresigned_URL: " + .presigned_url, "\n"'
 ```
-image
+![](images/presigned_url24.png)
 
 Now, you can see the grid-image.jpg that was created from the images by using Lambda as the compute environment
 
 * Open the S3 pre-signed URL in a new browser tab.
-image
+
+![](images/presignedurl_output25.png)
 
 **Congratulations!** You successfully engaged the API to create the grid image based on images that were stored in the GridBuilder DynamoDB table. Additionally, the API generated an S3 presigned URL, where the image is stored in the destination-images S3 bucket. Then, you viewed the grid-image.jpg file in a browser tab by using the S3 presigned URL.
 
