@@ -30,7 +30,7 @@ echo -e "Language\tCode" && echo -e "--------\t----" && aws dynamodb scan --tabl
 ## REVIEW THE PYTHON SCRIPT
 In this task, you review the Python script, and learn about the main sections and what they are intended to do. You also identify the sections you are challenged to update.
 
-```
+```python
 import boto3
 dynamo = boto3.client('dynamodb')
 
