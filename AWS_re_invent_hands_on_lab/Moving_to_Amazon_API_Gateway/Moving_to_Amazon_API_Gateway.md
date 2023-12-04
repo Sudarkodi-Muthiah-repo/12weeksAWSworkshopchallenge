@@ -28,13 +28,15 @@ aws dynamodb create-table \
       ReadCapacityUnits=5,WriteCapacityUnits=5
 ```
 Image
+
 **Congratulations!** You have successfully created the GridBuilder DynamoDB table.
 ### Task 2 UPDATE THE APPLICATION TO USE DYNAMODB
 In this task, you update the application so it uses DynamoDB to store the images that it needs to create the grid image.
 * Open the file tree and then open the /api-backend-manual/add_image/app.py file.
 * Update the dynamodb.put_item method to save the mapping from uniqueGridId to an S3 object.
+  
 **Solution**
-``python
+```python
 import os
 import json
 import boto3
@@ -81,10 +83,13 @@ def lambda_handler(event, context):
         }),
     }
 ```
+
 * To create a compressed .zip deployment package of the application and its dependencies, run the following command:
+  
 ```
 cd ~/environment/api-backend-manual/add_image ; zip ~/environment/api-backend-manual/add_image app.py
 ```
+
 image
 
 
