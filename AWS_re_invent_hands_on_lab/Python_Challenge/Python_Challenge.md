@@ -12,10 +12,10 @@ Architecture
 * Use Python code to update a DynamoDB table with parameters that are retrieved from an API Gateway request.
 
 Resources:
-Amazon S3 hosted website
-Application files
-html-frontend/index.html - This HTML document is primarily used for interacting with an API endpoint to save and list customer data to and from a DynamoDB table that’s named LabCustomers.
-sam-backend/ListCustomers/app.py
+* Amazon S3 hosted website
+**Application files**
+* html-frontend/index.html - This HTML document is primarily used for interacting with an API endpoint to save and list customer data to and from a DynamoDB table that’s named LabCustomers.
+* sam-backend/ListCustomers/app.py
 This Python script uses the SDK for Python to interact with the DynamoDB table that’s named LabCustomers. In short, this script retrieves all items from the LabCustomers table in DynamoDB and returns them in a specific format.
 ```python
 import boto3
@@ -99,17 +99,20 @@ In this task, you use AWS SAM to build and deploy the updated application packag
 ```
 cd ~/environment/sam-backend; sam build; sam deploy
 ```
-Image
+![](images/sam_build1.png)
+
+![](images/sam_build2.png)
 
 * After the application updates, switch back to the browser tab that’s opened to the Amazon S3 hosted website.
 
-* Update the following fields with new details of your own choosing, or by using the following values:
+* Update the following fields with new details of your own, or by using the following values:
 
 * For Customer ID:, enter AB12
 * For First Name:, enter Challenge
 * For Last Name:, enter Completed
 * Choose the Put Item button.
 * Below the Put Item button, the table should automatically update with the customer details that you just submitted.
-  Image
-  Image
+  ![](images/S3_website.png)
+
+  ![](images/dynamodb.png)
 **Task complete:** You have successfully deployed the latest application updates. You also tested the application to confirm that it stores new customer details in the DynamoDB table, and that it retrieves the table items to display in the Amazon S3 hosted website.
