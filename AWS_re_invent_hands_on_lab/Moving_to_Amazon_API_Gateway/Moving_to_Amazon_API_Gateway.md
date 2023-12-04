@@ -27,7 +27,7 @@ aws dynamodb create-table \
   --provisioned-throughput \
       ReadCapacityUnits=5,WriteCapacityUnits=5
 ```
-Image
+![](images/Dynamodb_table_creation1.png)
 
 **Congratulations!** You have successfully created the GridBuilder DynamoDB table.
 ### Task 2 UPDATE THE APPLICATION TO USE DYNAMODB
@@ -90,7 +90,8 @@ def lambda_handler(event, context):
 cd ~/environment/api-backend-manual/add_image ; zip ~/environment/api-backend-manual/add_image app.py
 ```
 
-image
+![](images/zip_deployment_package4.png)
+
 ### CREATE A LAMBDA FUNCTION
 In this task, you create the add_image Lambda function based on the deployment package that you just created.
 * To create the add_image Lambda function by using the deployment package, run the following command:
@@ -104,7 +105,7 @@ aws lambda create-function \
 --environment Variables={SOURCE_BUCKET=$SOURCE_BUCKET} \
 --zip-file fileb://~/environment/api-backend-manual/add_image.zip
 ```
-Image
+![](images/Lambda_fn_creation_output6.png)
 
 **Congratulations!** You successfully updated the application, created a deployment package, and used it to create the add_image Lambda function.
 ### Task 3 Create an API by using API Gateway
@@ -126,12 +127,13 @@ Image
 * Choose Next.
 * On the Define stages page, keep the default values and choose Next
 * On the Review and create page, choose Create
-  Image
+  ![](images/APIGW_creation17.png)
 * On the left navigation pane, choose Stages.
 * Choose the $default stage.
 * Copy the invoke URL to an editor. It should look similar to https://vf3acap6h0.execute-api.us-west-2.amazonaws.com.
 You use the invoke URL in a later step.
+![](images/APIGW_invoke_url18.png)
 **Congratulations!** You have successfully created an API by using API Gateway. This API can receive POST HTTP methods from the add_image and generate_grid Lambda functions.
 
-
+![](images/gridid19.png)
 
