@@ -127,13 +127,56 @@ aws lambda create-function \
 * Choose Next.
 * On the Define stages page, keep the default values and choose Next
 * On the Review and create page, choose Create
-  ![](images/APIGW_creation17.png)
+  ![](images/APIGw_creation17.png)
 * On the left navigation pane, choose Stages.
 * Choose the $default stage.
 * Copy the invoke URL to an editor. It should look similar to https://vf3acap6h0.execute-api.us-west-2.amazonaws.com.
 You use the invoke URL in a later step.
-![](images/APIGW_invoke_url18.png)
+![](images/APIGw_invoke_url18.png)
 **Congratulations!** You have successfully created an API by using API Gateway. This API can receive POST HTTP methods from the add_image and generate_grid Lambda functions.
-
+### Task 4 Create the grid image by using API Gateway
+In this task, you engage the API to create the grid image by using images that are stored in the source-images S3 bucket. After the API processes all images, a final grid image is created and stored in the destination-images S3 bucket.
+* Return to the AWS Cloud9 environment browser tab.
+* Create the uniqueGridId variable value (which is based on the timestamp when the command is run) by running the following command:
+```
+uniqueGridId=`date +%s` ; echo ${uniqueGridId}
+```
 ![](images/gridid19.png)
+
+You now create the baseURL variable by using the invoke URL value from API Gateway that you copied and saved previously.
+
+* To create the baseURL variable, update the placeholder text with the invoke URL value and then run the following command:
+```
+baseUrl='placeholder-for-invoke-url'
+```
+Now, you invoke the API using the following curl -X POST method to send data to it. The command sends an image file named image01.jpg as binary data to the source-images S3 bucket by using the HTTP POST method. Next, it passes the parameter named uniqueGridId with the baseUrl value, and stores this data in the DynamoDB table.
+* Invoke the API Gateway by using the following commands:
+```
+cd ~/environment/api-backend-manual/source
+
+curl -X POST --data-binary @image01.jpg "${baseUrl}/add_image?uniqueGridId=${uniqueGridId}"
+```
+* Repeat this step three more times for images named image02.jpg, image03.jpg, and image04.jpg.
+Image
+* View the entries that were created in DynamoDB by using the 
+
+aws dynamodb scan --table-name GridBuildercommand below:
+```
+aws dynamodb scan --table-name GridBuilder
+```
+* To engage the API to create the grid image and S3 presigned URL while formatting the output using jQuery, run the following command:
+```
+curl -s -X POST "${baseUrl}/generate_grid?uniqueGridId=${uniqueGridId}" | jq -r '"\nMessage: " + .message, "\nPresigned_URL: " + .presigned_url, "\n"'
+```
+image
+
+Now, you can see the grid-image.jpg that was created from the images by using Lambda as the compute environment
+
+* Open the S3 pre-signed URL in a new browser tab.
+image
+
+**Congratulations!** You successfully engaged the API to create the grid image based on images that were stored in the GridBuilder DynamoDB table. Additionally, the API generated an S3 presigned URL, where the image is stored in the destination-images S3 bucket. Then, you viewed the grid-image.jpg file in a browser tab by using the S3 presigned URL.
+
+
+
 
