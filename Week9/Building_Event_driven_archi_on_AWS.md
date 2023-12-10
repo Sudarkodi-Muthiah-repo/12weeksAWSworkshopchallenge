@@ -94,6 +94,78 @@ Due to the OrdersDevRule that you created in this section, all events to the Ord
 ```
 we have our first target configured successfully. let's configure some more targets for our Orders event bus.
 
+## Working with EventBridge rules
+Rules match incoming events and routes them to targets for processing. A single rule can route to multiple targets, all of which are processed in parallel. Rules aren't processed in a particular order. A rule can customize the JSON sent to the target, by passing only certain parts or by overwriting it with a constant. EventBridge supports 28+ AWS service targets!
+
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/9dee468f-4489-434b-adb9-843ddfad25a4)
+
+In this lab, we create an Orders event bus rule to match an event with a com.aws.orders source and to send the event to an Amazon API Gateway endpoint, invoke an AWS Step Function, and send events to an Amazon Simple Notification Service (Amazon SNS) topic.
+Rules use event patterns to select events and route them to targets. A pattern either matches an event or it doesn't. Event patterns are represented as JSON objects with a structure that is similar to that of events. 
+### API destination target
+**Task:** Process all events for source com.aws.orders via an Amazon EventBridge API Destination.
+### Step 1 Identify the API URL
+1. You can Find the API URL for this challenge in the **Outputs** of the CloudFormation Stack with a name containing **ApiUrl**.
+### Step 2 Configure the EventBridge API Destination with basic auth security
+1. On the EventBridge homepage, select API destinations from the left navigation.
+2. On the API destinations page, select Create API destination.
+3. On the Create API destination page
+   + Enter api-destination as the Name
+   + Enter the API URL identified in Step 1 as the API destination endpoint
+   + Select POST as the HTTP method
+   + Select Create a new connection for the Connection
+   + Enter basic-auth-connection as the Connection name
+   + Select Basic (Username/Password) as the Authorization type
+   + Enter myUsername as the Username
+   + Enter myPassword as the Password
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/72883c72-f819-4205-9e4a-543c9155ed1d)
+4. Click Create
+### Step 3 Configure an EventBridge Rule to target the EventBridge API Destination
+1. From the left-hand menu, select Rules.
+2. From the Event bus dropdown, select the Orders event bus.
+3. Click Create rule
+4. On the Define rule detail page
+  + Enter OrdersEventsRule as the Name of the rule
+  + Enter Send com.aws.orders source events to API Destination for Description
+5. Under Build event pattern
+    - Choose Other for your Event source
+    - Copy and paste the following into the Event pattern, and select Next to specify your target:
+  ```
+      {
+    "source": [
+        "com.aws.orders"
+    ]
+      }
+  ```
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/0cfc5eef-bc93-4eef-9db5-2821e19696cb)
+6. Select your rule target:
+    - Select EventBridge API destination as the target type.
+    - Select api-destination from the list of existing API destinations
+    
+  ![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/be67f7ed-7e9c-4930-9f65-d663d2d7a5ef)
+7. Click Next and finish walking through the rest of the walk-through to create the rule.
+### Step 4 Send test Orders event
+Using the Send events function, send the following Order Notification events from the source com.aws.orders:
+```
+{ "category": "lab-supplies", "value": 415, "location": "us-east" }
+```
+### Step 5 Verify API Destination
+If the event sent to the Orders event bus matches the pattern in your rule, then the event will be sent to an API Gateway REST API endpoint.
+
+1. Go to CloudWatch Log Groups.
+2. Select the Log group with an API-Gateway-Execution-Logs prefix.
+   ![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/02c3588e-8c44-408f-9d88-69e09bcebd56)
+
+3. Select the Log stream.
+4. Toggle the log event to verify the basic authorization was successful and the API responds with a 200 status.
+   ![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/94ce5758-5e5d-451d-bb02-5d49606b0953)
+
+**Congratulations!** You have successfully created your first custom event.
+
+
+
+
+
+
  
  
 
