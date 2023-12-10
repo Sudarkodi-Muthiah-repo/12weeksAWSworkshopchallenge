@@ -1,4 +1,8 @@
 # Building event-driven architectures on AWS
+**Launch the CF template 
+![CloudFormation Template](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=aws-event-driven-architectures-workshop&templateURL=https://aws-event-driven-architecture-workshop-assets.s3.amazonaws.com/master-v2.yaml)
+
+
 ## Event-driven with EventBridge
 ![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/a914bb19-ef8a-4786-b6d8-129068ff1914)
 
@@ -160,6 +164,54 @@ If the event sent to the Orders event bus matches the pattern in your rule, then
    ![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/94ce5758-5e5d-451d-bb02-5d49606b0953)
 
 **Congratulations!** You have successfully created your first custom event.
+## Step Functions Target
+### Step 1 Implement an EventBridge rule to target Step Functions
+On the EventBridge concole:
+1. Add a rule to the Orders event bus with the name EUOrdersRule
+2. Define an event pattern to match events with a detail location in eu-west or eu-east
+3. Target the OrderProcessing Step Functions state machine
+### Step 2 Send test EU Orders events
+Using the Send events function, send the following Order Notification events from the source com.aws.orders:
+```
+{ "category": "office-supplies", "value": 300, "location": "eu-west" }
+```
+```
+{ "category": "tech-supplies", "value": 3000, "location": "eu-east" }
+```
+### Step 3 Verify Step Functions workflow execution
+If the event sent to the Orders event bus matches the pattern in your rule, then the event will be sent to the OrderProcessing Step Functions state machine for execution.
+1. Open the AWS Management Console for Step Functions.
+2. On the Step Functions homepage, open the left hand navigation and select State machines.
+3. Enter OrderProcessing in the Search for state machines box and verify the state machine execution has succeeded.
+The Step Functions state machine will publish an OrderProcessed event back to the Orders event bus, using a new Service Integration for EventBridge which provides a simpler solution for producing events during a workflow execution.
+
+**Congratulations!** You have completed the Step Functions Challenge.
+
+## SNS target
+**Task:** Process only orders from US locations (us-west or us-east) that are lab-supplies using a Amazon SNS target (Orders). Similar to the previous use case, but using SNS.
+### Step 1 Implement an EventBridge rule to target SNS
+Use the EventBridge Console to:
+1. Add a rule to the Orders event bus with the name USLabSupplyRule
+2. With an event pattern to match events with a detail location in us-west or us-east, and a detail category with lab-supplies.
+3. Target the Orders SNS topic
+
+### Step 2 Send test US Orders events
+Using the Send events function, send the following Order Notification events from the source com.aws.orders:
+```
+{ "category": "lab-supplies", "value": 415, "location": "us-east" }
+```
+```
+{ "category": "office-supplies", "value": 1050, "location": "us-west", "signature": [ "John Doe" ] }
+```
+### Step 3 Verify SNS topic
+If the event sent to the Orders event bus matches the pattern in your rule, then the event will be sent to the Orders SQS Queue (via Orders SNS Topic).
+
+1. Open the AWS Management Console for SQS
+2. On the SQS homepage, select the Orders queue.
+3. Select the Send and receive messages button.
+4. Select Poll for Messages and verify the first message was delivered and the second was not.
+5. To clean up, select the event, select the Delete button, and select the Delete button again on the Delete Messages confirmation dialog.
+**Congratulations!** You have completed the SNS Challenge.  
 
 
 
