@@ -15,8 +15,7 @@ In this module, you will use EventBridge to learn how to create an event bus, ro
 
 In this module, you will create a custom EventBridge event bus, Orders, and an EventBridge rule, OrderDevRule, which matches all events sent to the Orders event bus and sends the events to a CloudWatch Logs log group, /aws/events/orders. See the diagram above:
 
-T
-he technique of logging all events to CloudWatch Logs is useful when implementing EventBridge rules.
+The technique of logging all events to CloudWatch Logs is useful when implementing EventBridge rules.
 ### Step 1 Create a custom event bus
 1. On the EventBridge homepage, under Events, select Event buses from the left navigation.
 2. Click Create event bus.
@@ -38,6 +37,68 @@ In this workshop, we will scope all events coming from the source com.aws.orders
 ![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/fd598d28-6500-4c33-bde6-22c9c6b405da)
 5. In the next step, Build event pattern
   + under Event source, choose Other
+  + Under Event pattern, further down the screen, enter the following pattern to catch all events from com.aws.orders:
+    ```
+    {
+   "source": ["com.aws.orders"]
+    }
+    ```
+  + Select next.
+6. Select your rule target:
+  + From the Target dropdown, select CloudWatch log group
+  + Name your log group /aws/events/orders
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/a19691bb-f8b6-4982-a26b-6a81cc5c93f1)
+7. Skip through the configure tags section, review your rule configuration and click Create.
+
+### Step 3 Test your dev rule
+1. Select the Event buses in the left pane and select Send events to test the newly created event rule.
+2. Make sure that the custom event is populated with the following:
+   + Event Bus selected to Orders
+   + Source should be com.aws.orders
+   + In the Detail Type add Order Notification
+   + JSON payload for the Event detail should be:
+     ```
+     {
+   "category": "lab-supplies",
+   "value": 415,
+   "location": "eu-west"
+     }
+   ```
+3. Click **Send**
+   ![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/f0853265-a47b-45ee-973c-188709a584cb)
+4. Open the CloudWatch.
+5. Choose Log groups in the left navigation and select the /aws/events/orders log group.
+![](https://static.us-east-1.prod.workshops.aws/public/ad443b13-59e4-41b7-983d-cfbe6bf18983/static/images/eb_cwl_groups.png)
+6. Select the Log stream
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/48b513b7-49bb-4047-b1bf-8b6b2badbd8a)
+7. Toggle the log event to verify that you received the event.
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/14659cf7-5d29-421d-9c8c-e29eb29359fd)
+### Step 4 Review Event structure
+Due to the OrdersDevRule that you created in this section, all events to the Orders event bus will be sent to CloudWatch Logs, which you can use to view sample data to implement and troubleshoot rules matching logic.
+```
+{
+    "version": "0",
+    "id": "c04cc8c1-283c-425e-8cf6-878bbc67a628",
+    "detail-type": "Order Notification",
+    "source": "com.aws.orders",
+    "account": "111111111111",
+    "time": "2020-02-20T23:10:29Z",
+    "region": "us-west-2",
+    "resources": [],
+    "detail": {
+        "category": "lab-supplies",
+        "value": 415,
+        "location": "eu-west"
+    }
+}
+```
+we have our first target configured successfully. let's configure some more targets for our Orders event bus.
+
+ 
+ 
+
+
+
     
 
 
