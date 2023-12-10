@@ -213,6 +213,126 @@ If the event sent to the Orders event bus matches the pattern in your rule, then
 5. To clean up, select the event, select the Delete button, and select the Delete button again on the Delete Messages confirmation dialog.
 **Congratulations!** You have completed the SNS Challenge.  
 
+## Event-driven with Lambda
+When a function is invoked asynchronously, Lambda sends the event to an internal queue. A separate process reads events from the queue and executes your Lambda function.
+A common event-driven architectural pattern is to use a queue or message bus for communication. This helps with resilience and scalability. Lambda asynchronous invocations can put an event or message on Amazon Simple Notification Service (SNS), Amazon Simple Queue Service (SQS), or Amazon EventBridge for further processing.With Destinations, you can route asynchronous function results as an execution record to a destination resource without writing additional code.
+
+## AWS Lambda destinations
+
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/d7fc9ce1-7408-4149-854c-1302c2f1ddb2)
+
+This module extends the AWS Step Functions challenge completed in Working with EventBridge rules.
+### Step 1 Configure the inventory bus
+Configure the Inventory event bus as a successful Lambda Destination on InventoryFunction Lambda function
+
+1. Open the AWS Management Console for Lambda
+2. Select Functions in the left navigation.
+3. Enter InventoryFunction in the Lambda function filter. And select the function name filter when it shows up.
+4. Select the Lambda function from the list of functions.
+5. In the Lambda function Designer, choose Add destination.
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/1f7505cc-ebf3-42e7-bb7f-f5ce68b668d1)
+
+6. In the Add destination dialogue box:
+   - For Condition, select On success.
+   - For Destination type, select EventBridge event bus.
+   - For Destination, select Inventory.
+
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/b8fd3f02-3b07-47ef-8007-3089b5517780)
+7. Choose Save.
+The On Success Destination is displayed.
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/ec115da0-0e44-4f77-ac91-6ca6acbce330)
+
+### Step 2 Create the "Order Processed" rule for the inventory function
+The Inventory function subscribes to events that signal the processing of the order has been completed successfully. The OrderProcessed event is published by the Step Function created in the AWS Step Functions challenge.
+1. Create a rule on the Orders event bus called OrderProcessingRule
+2. Add a description: Handles orders successfully processed by the Order Processing state machine
+3. Define a rule pattern.
+```
+{
+    "source": [
+        "com.aws.orders"
+    ],
+    "detail-type": [
+        "Order Processed"
+    ]
+}
+```
+4. Configure the rule target to point to the Inventory function.
+### Step 3 Testing the end-to-end functionality
+To test the end-to-end functionality, you will publish a message to the Orders EventBridge event bus with an EU location. This will trigger the following sequence of event-driven actions:
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/e1d08db0-4d96-487b-bc26-9c952697ab9b)
+* JSON payload for the Event detail should be:
+```
+{
+  "category": "office-supplies",
+  "value": 1200,
+  "location": "eu-west",
+  "OrderDetails": "completed"      
+}
+```
+* Click Send
+* Open the CloudWatch console
+* Choose Log groups in the left navigation.
+* Enter /aws/events/inventory in the Log Group Filter and choose /aws/events/inventory log group.
+* In the list of Log Streams, choose the Log Stream.
+* Expand the Log Stream record to verify success and explore the event schema.
+  ![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/c6c08738-0701-469b-8c5e-de99497ff5cd)
+**Congratulations!** You have successfully used Lambda Destinations to send a message to the Inventory EventBridge event bus, following message processing through EventBridge, Step Functions, and SNS.
+## Event-driven with SNS
+In addition to Amazon EventBridge, event-driven applications can also be developed using Amazon Simple Notification Service (SNS). Amazon SNS is recommended when you want to build an application that reacts to high throughput or low latency messages published by other applications or microservices (as Amazon SNS provides nearly unlimited throughput), or for applications that need very high fan-out (thousands or millions of endpoints). Messages are unstructured and can be in any format.
+In this lab, we  build on a simple pub/sub implementation using Amazon SNS as our publishing service and Amazon SQS as a subscriber (you will use the queue to validate message delivery)
+### Simple pub/sub
+An Amazon SNS topic will be used to publish events to an Amazon SQS queue subscriber. This will allow you to easily verify the successful delivery of your messages. An Amazon SNS topic is a logical access point that acts as a communication channel. A topic lets you group multiple endpoints (such as AWS Lambda, Amazon SQS, HTTP/S, or an email address).
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/5e8949ee-188e-48b4-9640-52011808b079)
+### Step 1 Create the Orders SQS queue
+Create an Amazon SQS queue, also called Orders, to durably store Order messages.
+1. Open the SQS on consolw
+2. click Create queue at the top of your queue list.
+3. Enter a queue name OrdersQueue
+4. Select Standard Queue for the type of queue you want to configure.
+5. Choose Create queue
+6. The OrdersQueue queue is created and selected in the queue list.
+### Step 2 Subscribe the OrdersQueue SQS queue to the OrderQueue SNS topic
+To receive messages published to a topic, you must subscribe an endpoint to the topic.When you subscribe an endpoint to a topic, the endpoint begins to receive messages published to the associated topic.
+1. From the list of queues, choose the OrdersQueue queue to which to subscribe to the Orders Amazon SNS topic.
+2. From Queue Actions, select Subscribe Queue to SNS Topic.
+3. From the Specify an Amazon SNS topic drop-down list, select the Orders topic to which to subscribe the OrdersQueue queue, and then choose Save.
+
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/debe3e94-2d16-4b7f-8ca1-9f78acc7f826)
+4. Verify that the OrdersQueue SQS queue is successfully subscribed to the Orders and is displayed in SNS Subscriptions tab.
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/d022faf6-0e1a-4970-9ced-91ba3ede8376)
+The queue is subscribed to the topic. Note that the Access policy tab displays the SQS Policy that was added, allowing access for the Orders SNS topic to send messages to the OrdersQueue SQS queue.
+### Step 3 Publish a test message using the Publish message functionality
+To verify the result of the subscription, you will use the Publish Message functionality to publish to the topic and then view the message that the topic sends to the queue.
+1. Select Topics in the left pane of the Amazon SNS service, select Orders topics from the list of Topics and click on Publish message.
+2. Enter Test message in the Message body
+3. Choose Publish message to publish the message to the Orders SNS topic.
+   ![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/60912f05-69e3-4615-97d3-646f0a37752e)
+### Step 4 Verify message delivery
+1. Open SQS window
+2. From the list of queues, choose the OrdersQueue queue. Note the OrdersQueue queue now shows the value 1 in the Messages Available column in the list. This means the Orders SNS topic has successfully sent the message to the queue.
+
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/01a2b47c-6fea-41ac-9900-8ef8464bba24)
+3. select Send and receive messages.
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/d69559e5-2d49-4508-8778-212464addc65)
+4. On details screen, choose Poll for messages.
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/fe1039e3-288c-4ede-ba0d-35a2cefe9016)
+Amazon SQS begins to poll the messages in the queue. The dialog box displays a message from the queue. A progress bar at the bottom of the dialog box displays the status of the message's visibility timeout.
+The following example shows the ID, Sent, Size and Receive Count columns.
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/2dca957f-46b9-4aee-af24-0f358e593774)
+5. Before the visibility timeout expires, select the message that you want to delete and then choose Delete 1 Message.
+6. The selected message is deleted.
+![image](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/ee324546-97d3-4723-a5a5-5ee605ae6b76)
+
+**Congratulations!** You have successfully published a message to an SNS topic and verified that it was sent to the SQS queue subscription. 
+
+
+
+
+
+
+
+
 
 
 
