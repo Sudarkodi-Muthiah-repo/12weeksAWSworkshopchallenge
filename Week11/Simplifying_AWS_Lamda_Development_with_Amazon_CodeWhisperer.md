@@ -195,6 +195,174 @@ Testing Amazon CodeWhisperer in AWS Cloud9
 - Saving the file with a .py extension will allow CodeWhisperer to provide suggestions.
 2. Click Save.
 ![cloud9_env27](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/655c198b-e4b3-4bea-a641-464a08a0aa9e)
+### Step 26:
+1. In the top scripts.py window, type:
+```
+#command to zip files addObjects.py and test.txt
+```
+2. Review the CodeWhisperer suggestion to zip the files requested.
+3. Choose the highlighted suggestion in green.
+![cloud9_env28](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/e706d31f-5e9c-4e3b-a981-4ee42a26b9ad)
+### Step 27:
+1. Below the zip command, type:
+```
+#aws cli command to query for iam role arn with name LambdaDeploymentRole
+```
+- If a suggestion doesn't appear, press Enter.
+- LambdaDeploymentRole was created as part of the lab prebuild process with permissions needed by the Lambda function to create an S3 bucket, upload objects to the bucket, and delete an object from the bucket.
+2. Review the CodeWhisperer suggestion to get the IAM role with the provided name.
+3. Choose the highlighted suggestion in green.
+![cloud9_env29](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/e960493f-f30d-4da9-90be-1f42d57ae77a)
+### Step 28:
+1. On line 5, at the end of the CodeWhisperer suggestion, press the space bar.
+2. Review the CodeWhisperer suggestion.
+3. Choose the highlighted suggestion in green.
+![cloud9_env30](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/0b71b213-4b38-4e59-acec-c7c42bbd6b79)
+### Step 29:
+- In this step, you run the commands in the AWS Cloud9 bash terminal to create a zip file.
+1. In the terminal window, at the command prompt, run (type the command and press Enter):
+```
+cd createBucket
+```
+2. In the top scripts.py window, select (highlight) and copy the command to zip the files in the createBucket folder.
+- Be sure not to copy the comment hash symbol (#) at the beginning.
+3. Paste the command in the bottom terminal, and then press Enter.
+4. Review the files added to the addObjects.zip file.
+![cloud9_env31](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/520af42a-7afb-474e-b25b-0b7bb99e35fc)
+### Step 30:
+- In this step, you generate an AWS Command Line Interface (AWS CLI) command for uploading the Lambda function to the console.
+1. In the top scripts.py window, type:
+```
+#aws cli command to upload a lambda function addObjects.zip file to the console with runtime 3.10
+```
+and press Enter.
+2. In the pop-up box, review the CodeWhisperer suggestion to create the Lambda function.
+- You can scroll to the right to view the entire suggestion.
+3. Choose the highlighted suggestion in green.
+![cloud9_env32](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/365084dd-f1dd-4cd8-a847-19aec49c81a5)
+### Step 31:
+1. In the top scripts.py window, select (highlight) and copy the command to get the IAM role ARN for the LambdaDeploymentRole.
+2. In the bottom terminal, paste the command, and then press Enter.
+3. Highlight and copy the role ARN output of the command.
+- The output displays the ARN of the LambdaDeploymentRole. This value will be used in the create-function command in the next step.
+![cloud9_env33](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/6a83a7ce-25e1-47f4-9fd4-6e9b70f2ba86)
+### Step 32:
+1. In the top scripts.py window, to replace the role ARN in the create-function command, after --role, paste the ARN that you just copied.
+- You will have to scroll to the right to replace the complete command.
+2. Copy the updated create-function command.
+3. In the bottom terminal, paste the command, and then press Enter.
+![cloud9_env34](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/29062bf9-ac3d-48ca-a7ea-7e06bc1efd32)
+### Step 33:
+1. Review the output of the create-function command.
+- The StateReason and StateReasonCode parameter values provide the status of the creation process.
+- The FunctionArn provides the ARN of the addObjects Lambda function.
+2. At the colon symbol, press Enter until you see (END).
+3. Review (END), and then press Ctrl+C to end the command.
+![cloud9_env36](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/71d7d9fe-411b-490b-a836-ad870189d690)
+### Step 34:
+1. Go to the service Lambda.
+2. In the Functions section, click addObjects.
+![cloud9_env37](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/8ad79ead-78d2-4c00-aa1e-924a052ed326)
+### Step 35:
+1. In the Function overview section, review the addObjects function details.
+2. Scroll down to the Code source section.
+3. In the Environment window, under addObjects, review the displayed files.
+4. In the addObjects.py window, review the code.
+![cloud9_env38](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/c36e23e4-315b-4831-9439-e3bf0fd62eea)
+### Step 36:
+1. Click the Configuration tab.
+2. In the General configuration section, under Timeout, review the default value.
+3. To change the Timeout value, click Edit.
+4. In the Edit basic settings window, scroll down to Timeout.
+5. For min, type:**1**
+6. Click Save.
+### Step 37:
+1. Review the success message alert.
+2. Click the Test tab.
+3. In the Test event section, for Test event action, choose Create new event.
+4. For Event name, type:
+**test**
+5. For Event sharing settings, choose Private.
+6. Scroll down to review the remaining settings.
+7. At the top of the section, click Save.
+![cloud9_env39](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/eda4e513-b356-4ea0-9c91-9e94fae44e7b)
+### Step 38:
+1. In the success alert, review the message.
+2. To test the Lambda function, click Test.
+### Step 39:
+1. Review the Executing function:succeeded message.
+- The executing function status changes from in progress to succeeded once the Lambda function runs successfully.
+2. In the Executing function: succeeded section, click to expand Details.
+3. Review the ResponseMetaData details.
+![cloud9_env40](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/cd43610d-0818-4792-a440-84630e16b231)
+### Step 40:
+1. Go to the service S3.
+2. In the Buckets section, review the details for the bucket name that starts with lab-bucket-.
+3. Click the bucket name.
+![cloud9_env41](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/9673fd8e-45cd-4d85-a012-7302b94a1646)
+### Step 41
+1. On the Objects tab, review the two objects that were created.
+![cloud9_env42](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/9b88ef58-7342-4091-aaa0-a9e2aafd3ad2)
+### Step 42:
+- In this step, you activate CodeWhisperer for the AWS Lambda console. When activated, CodeWhisperer can make code recommendations on demand in the Lambda code editor as you develop your function.
+1. Navigate to the addObjects function page on the AWS Lambda console.
+2. On the Code tab, on the Code source navigation bar, click Tools to expand the dropdown menu.
+3. Choose Amazon CodeWhisperer Code Suggestions.
+![cloud9_env43](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/e24996d2-b3ad-4b89-8a91-be7323c0f7ff)
+### Step 43:
+- The LambdaDeploymentRole has codewhisperer:GenerateRecommendations permission attached to it.
+1. In the addObjects.py window, below the s3.put_object command, type:
+```
+# delete an object from lab-bucket
+```
+and press Enter.
+2. On the Code source navigation bar, click Tools to expand the dropdown menu.
+3. Choose Suggest Code Snippet.
+![cloud9_env44](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/d2a1e8ba-c48d-4a83-ba56-6a7cc35194d4)
+### Step 44:
+1. Review the suggestion provided by CodeWhisperer to delete the test.txt file.
+2. Press Enter to accept the suggestion.
+3. For Bucket, to replace 'XXXXX', paste your unique bucket name.
+4. To deploy the updated function code, click Deploy.
+![cloud9_env45](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/9f64202d-20ef-4f3d-99cc-9d0a8f8ad505)
+
+### Step 45:
+1. In the success alert, review the message.
+2. Review the function code with the delete_object method.
+3. To run the updated function code, click Test.
+4. In the Execution results window, review the Status:Succeeded and the results.
+![cloud9_env46](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/650bced8-4e59-40d1-905f-1ad513df872e)
+### Step 46:
+1. Navigate to the lab-bucket page on the Amazon S3 console.
+2. On the Objects tab, review to see that the test.txt object was deleted
+### Step 47:
+1. Add a comment to enable versioning for the bucket
+```
+# enable versioning for the bucket
+```
+and press Enter.
+2. On the Code source navigation bar, click Tools to expand the dropdown menu.
+3. Choose Suggest Code Snippet.
+![cloud9_env47](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/a3eb5750-4126-4a90-bd6e-2f91101d2a75)
+### Step 48:
+1. Review the suggestion provided by CodeWhisperer.
+2. Press Enter to accept the suggestion.
+3. Update the bucket name, and then update the Versioning configuration status value to "Enabled"
+4. To deploy the updated function code, click Deploy.
+![cloud9_env48](https://github.com/Sudarkodi-Muthiah-repo/12weeksAWSworkshopchallenge/assets/101267167/ca60569a-5224-4b54-a100-6861492693c9)
+### Step 49:
+1. In the success alert, review the message.
+2. Review the function code.
+3. To run the updated function code, click Test.
+4. In the Execution results window, review the Status: Succeeded and the results.
+### Step 50:
+1. Go to S3 bucket.
+2. Review Versioning under the properties tab.
+
+**Congratulations!** We have successfully developed a Lambda function with Amazon CodeWhisperer.
+
+
+
 
 
 
