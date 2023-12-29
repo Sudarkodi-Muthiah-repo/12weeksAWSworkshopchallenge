@@ -1,0 +1,157 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  VPC:
+    Type: AWS::EC2::VPC::Id
+    Description: The ID for the VPC in which the EC2 instance will be launched.
+  Subnet:
+    Type: AWS::EC2::Subnet::Id
+    Description: The ID for the Subnet in which the EC2 instance will be launched.
+  S3BucketName:
+    Type: String
+    Description: Name of the S3 bucket where the application code is stored
+  S3ObjectKey:
+    Type: String
+    Description: Object key of the application code in the S3 bucket
+  NodejsPlatformVersion:
+    Type: String
+    Description: Enter NodeJs Amazon Linux 2 Latest Platform version
+
+Resources:
+  SampleInstanceProfileRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Sid: ''
+          Effect: Allow
+          Principal:
+            Service:
+            - ec2.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier
+  XRayWriteOnlyPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AWSXRayWriteOnlyPolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - sns:Publish
+          - xray:PutTelemetryRecords
+          - xray:PutTraceSegments
+          - dynamodb:PutItem
+          Resource:
+          - "*"
+      Roles:
+      - Ref: SampleInstanceProfileRole
+  SampleInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+      - Ref: SampleInstanceProfileRole
+  SampleEBServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Sid: ''
+          Effect: Allow
+          Principal:
+            Service: elasticbeanstalk.amazonaws.com
+          Action: sts:AssumeRole
+          Condition:
+            StringEquals:
+              sts:ExternalId: elasticbeanstalk
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService
+      - arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth
+  ElasticBeanstalkApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName:
+        Ref: AWS::StackName
+  ElasticBeanstalkApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    Properties:
+      ApplicationName:
+        Ref: ElasticBeanstalkApplication
+      SourceBundle: 
+        S3Bucket: !Ref S3BucketName
+        S3Key: !Ref S3ObjectKey
+  ElasticBeanstalkEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName:
+        Ref: ElasticBeanstalkApplication
+      Description: AWS X-Ray Getting Started Sample Application
+      EnvironmentName:
+        Ref: AWS::StackName
+      OptionSettings:
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: InstanceType
+        Value: t2.micro, t2.small
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: IamInstanceProfile
+        Value:
+          Ref: SampleInstanceProfile
+      - Namespace: aws:elasticbeanstalk:environment
+        OptionName: ServiceRole
+        Value:
+          Ref: SampleEBServiceRole
+      - Namespace: aws:elasticbeanstalk:environment
+        OptionName: EnvironmentType
+        Value: SingleInstance
+      - Namespace: aws:elasticbeanstalk:healthreporting:system
+        OptionName: SystemType
+        Value: enhanced
+      -
+        Namespace: "aws:ec2:vpc"
+        OptionName: AssociatePublicIpAddress
+        Value: true
+      -
+        Namespace: "aws:ec2:vpc"
+        OptionName: ELBSubnets
+        Value: !Ref Subnet
+      -
+        Namespace: "aws:ec2:vpc"
+        OptionName: Subnets
+        Value: !Ref Subnet
+      -
+        Namespace: "aws:ec2:vpc"
+        OptionName: VPCId
+        Value: !Ref VPC
+      PlatformArn:
+        Fn::Sub:
+          - arn:aws:elasticbeanstalk:${AWS::Region}::platform/Node.js 18 running on 64bit Amazon Linux 2/${NodejsPlatformVersion}
+          - NodejsPlatformVersion: !Ref NodejsPlatformVersion
+      VersionLabel:
+        Ref: ElasticBeanstalkApplicationVersion
+Outputs:
+  ElasticBeanstalkEnvironmentURL:
+    Description: URL for the Elastic Beanstalk Getting Started Sample Application
+    Value:
+      Fn::GetAtt:
+      - ElasticBeanstalkEnvironment
+      - EndpointURL
+  SampleInstanceProfileRole:
+    Description: IAM Role used for AWS X-Ray Getting Started Sample Application
+    Value:
+      Fn::GetAtt:
+      - SampleInstanceProfileRole
+      - Arn
+  SampleInstanceProfile:
+    Description: Instance Profile used for AWS X-Ray Getting Started Sample Application
+    Value:
+      Ref: SampleInstanceProfile
+  SampleEBServiceRole:
+    Description: IAM Role used for AWS Elastic Beanstalk Service Role
+    Value:
+      Fn::GetAtt:
+      - SampleEBServiceRole
+      - Arn
